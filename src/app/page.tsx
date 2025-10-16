@@ -23,11 +23,7 @@ export default function Home() {
   };
 
   return (
-<<<<<<< HEAD
-    <div className="min-h-screen bg-gray-50">
-=======
-    <div className="min-h-screen bg-white">
->>>>>>> 3a15f9aebc5d6a02f3836cac27cdf747fa1f8cb7
+    <main className="min-h-screen bg-black-50">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-700 text-white py-24 overflow-hidden">
         {/* Animated Background Elements */}
@@ -60,7 +56,6 @@ export default function Home() {
           />
         </div>
 
-<<<<<<< HEAD
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 justify-center text-center">
           <div className="inline-block mb-4 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium">
             ✨ Welcome to the Future of Finance
@@ -92,91 +87,6 @@ export default function Home() {
               View Analytics
             </Link>
           </div>
-=======
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center"
-            initial="initial"
-            animate="animate"
-            variants={staggerContainer}
-          >
-            <motion.div
-              variants={fadeInUp}
-              className="inline-block mb-6 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20"
-            >
-              <span className="text-sm font-semibold flex items-center gap-2">
-                <span className="inline-block w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                Welcome to the Future of Finance
-              </span>
-            </motion.div>
-
-            <motion.h1
-              variants={fadeInUp}
-              className="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 tracking-tight"
-            >
-              Welcome to{" "}
-              <span className="relative">
-                <span className="relative z-10 bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-100 to-white">
-                  FinanceHub
-                </span>
-                <motion.span
-                  className="absolute bottom-2 left-0 right-0 h-4 bg-white/20 -z-10"
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ delay: 0.5, duration: 0.8 }}
-                />
-              </span>
-            </motion.h1>
-
-            <motion.p
-              variants={fadeInUp}
-              className="text-xl md:text-2xl mb-4 text-blue-50 font-light max-w-3xl mx-auto"
-            >
-              Your Trusted Platform for Financial Software Solutions
-            </motion.p>
-
-            <motion.p
-              variants={fadeInUp}
-              className="text-base md:text-lg mb-10 max-w-2xl mx-auto text-blue-100/90 leading-relaxed"
-            >
-              Streamline your business operations with our comprehensive suite of
-              financial management tools, payment processing, and analytics solutions.
-            </motion.p>
-
-            <motion.div
-              variants={fadeInUp}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
-            >
-              <Link
-                href="/products"
-                className="group relative inline-flex items-center justify-center px-8 py-4 bg-white text-blue-600 rounded-xl font-bold shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden"
-              >
-                <span className="relative z-10 flex items-center gap-2">
-                  Browse Products
-                  <motion.span
-                    animate={{ x: [0, 5, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                  >
-                    →
-                  </motion.span>
-                </span>
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-blue-50 to-white"
-                  initial={{ x: "-100%" }}
-                  whileHover={{ x: 0 }}
-                  transition={{ duration: 0.3 }}
-                />
-              </Link>
-
-              <Link
-                href="/analytics"
-                className="inline-flex items-center justify-center px-8 py-4 bg-white/10 backdrop-blur-md text-white rounded-xl font-bold border-2 border-white/30 hover:bg-white/20 transition-all duration-300 shadow-lg"
-              >
-                View Analytics
-              </Link>
-            </motion.div>
-          </motion.div>
->>>>>>> 3a15f9aebc5d6a02f3836cac27cdf747fa1f8cb7
         </div>
       </section>
 
@@ -363,6 +273,6 @@ export default function Home() {
           </div>
         </motion.div>
       </section>
-    </div>
+    </main>
   );
 }
