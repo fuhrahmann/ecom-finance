@@ -1,187 +1,329 @@
+'use client';
+
 import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
 import { sampleProducts } from "@/data/sampleData";
+import { motion } from "framer-motion";
 
 export default function Home() {
   const featuredProducts = sampleProducts.slice(0, 3);
 
+  const fadeInUp = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.5 }
+  };
+
+  const staggerContainer = {
+    animate: {
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white py-16 sm:py-24 lg:py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:20px_20px]" />
-        <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20" />
+      <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-700 text-white py-24 overflow-hidden">
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <motion.div
+            className="absolute top-20 left-10 w-72 h-72 bg-blue-400/20 rounded-full blur-3xl"
+            animate={{
+              scale: [1, 1.2, 1],
+              x: [0, 50, 0],
+              y: [0, 30, 0],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+          <motion.div
+            className="absolute bottom-20 right-10 w-96 h-96 bg-indigo-400/20 rounded-full blur-3xl"
+            animate={{
+              scale: [1, 1.3, 1],
+              x: [0, -50, 0],
+              y: [0, -30, 0],
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+        </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <div className="inline-block mb-4 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium">
-              ✨ Welcome to the Future of Finance
-            </div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 tracking-tight">
-              Welcome to{" "}
-              <span className="bg-gradient-to-r from-blue-200 to-cyan-200 bg-clip-text text-transparent">
-                FinanceHub
+          <motion.div
+            className="text-center"
+            initial="initial"
+            animate="animate"
+            variants={staggerContainer}
+          >
+            <motion.div
+              variants={fadeInUp}
+              className="inline-block mb-6 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20"
+            >
+              <span className="text-sm font-semibold flex items-center gap-2">
+                <span className="inline-block w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                Welcome to the Future of Finance
               </span>
-            </h1>
-            <p className="text-xl sm:text-2xl md:text-3xl mb-6 text-blue-50 font-light">
+            </motion.div>
+
+            <motion.h1
+              variants={fadeInUp}
+              className="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 tracking-tight"
+            >
+              Welcome to{" "}
+              <span className="relative">
+                <span className="relative z-10 bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-100 to-white">
+                  FinanceHub
+                </span>
+                <motion.span
+                  className="absolute bottom-2 left-0 right-0 h-4 bg-white/20 -z-10"
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ delay: 0.5, duration: 0.8 }}
+                />
+              </span>
+            </motion.h1>
+
+            <motion.p
+              variants={fadeInUp}
+              className="text-xl md:text-2xl mb-4 text-blue-50 font-light max-w-3xl mx-auto"
+            >
               Your Trusted Platform for Financial Software Solutions
-            </p>
-            <p className="text-base sm:text-lg md:text-xl mb-10 max-w-3xl mx-auto text-blue-100 leading-relaxed">
+            </motion.p>
+
+            <motion.p
+              variants={fadeInUp}
+              className="text-base md:text-lg mb-10 max-w-2xl mx-auto text-blue-100/90 leading-relaxed"
+            >
               Streamline your business operations with our comprehensive suite of
               financial management tools, payment processing, and analytics solutions.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            </motion.p>
+
+            <motion.div
+              variants={fadeInUp}
+              className="flex flex-col sm:flex-row gap-4 justify-center"
+            >
               <Link
                 href="/products"
-                className="w-full sm:w-auto bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold hover:bg-blue-50 transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 transform"
+                className="group relative inline-flex items-center justify-center px-8 py-4 bg-white text-blue-600 rounded-xl font-bold shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden"
               >
-                Browse Products →
+                <span className="relative z-10 flex items-center gap-2">
+                  Browse Products
+                  <motion.span
+                    animate={{ x: [0, 5, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  >
+                    →
+                  </motion.span>
+                </span>
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-blue-50 to-white"
+                  initial={{ x: "-100%" }}
+                  whileHover={{ x: 0 }}
+                  transition={{ duration: 0.3 }}
+                />
               </Link>
+
               <Link
                 href="/analytics"
-                className="w-full sm:w-auto bg-transparent text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/10 transition-all duration-200 border-2 border-white/30 backdrop-blur-sm"
+                className="inline-flex items-center justify-center px-8 py-4 bg-white/10 backdrop-blur-md text-white rounded-xl font-bold border-2 border-white/30 hover:bg-white/20 transition-all duration-300 shadow-lg"
               >
                 View Analytics
               </Link>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-white to-gray-50">
+      <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Why Choose FinanceHub?
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Powerful features designed to transform your financial operations
             </p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            <div className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100">
-              <div className="bg-gradient-to-br from-blue-500 to-blue-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                <svg
-                  className="w-8 h-8 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                  />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold mb-3 text-gray-900 text-center">Secure Payments</h3>
-              <p className="text-gray-600 text-center leading-relaxed">
-                Enterprise-grade security with end-to-end encryption for all your financial transactions
-              </p>
-            </div>
+          </motion.div>
 
-            <div className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100">
-              <div className="bg-gradient-to-br from-green-500 to-emerald-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                <svg
-                  className="w-8 h-8 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+          <motion.div
+            variants={staggerContainer}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          >
+            {[
+              {
+                icon: "🔒",
+                title: "Secure Payments",
+                description: "Enterprise-grade security with end-to-end encryption for all your financial transactions",
+                color: "from-blue-500 to-blue-600"
+              },
+              {
+                icon: "📊",
+                title: "Advanced Analytics",
+                description: "Real-time insights and comprehensive reports on your financial performance",
+                color: "from-green-500 to-emerald-600"
+              },
+              {
+                icon: "⚡",
+                title: "Fast Processing",
+                description: "Lightning-fast transaction processing with instant reporting and notifications",
+                color: "from-purple-500 to-violet-600"
+              }
+            ].map((feature, index) => (
+              <motion.div
+                key={index}
+                variants={fadeInUp}
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100"
+              >
+                <motion.div
+                  className={`w-16 h-16 bg-gradient-to-br ${feature.color} rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}
+                  whileHover={{ rotate: [0, -10, 10, -10, 0] }}
+                  transition={{ duration: 0.5 }}
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                  />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold mb-3 text-gray-900 text-center">Advanced Analytics</h3>
-              <p className="text-gray-600 text-center leading-relaxed">
-                Real-time insights and comprehensive reports on your financial performance
-              </p>
-            </div>
-
-            <div className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100 sm:col-span-2 lg:col-span-1">
-              <div className="bg-gradient-to-br from-purple-500 to-violet-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                <svg
-                  className="w-8 h-8 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13 10V3L4 14h7v7l9-11h-7z"
-                  />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold mb-3 text-gray-900 text-center">Fast Processing</h3>
-              <p className="text-gray-600 text-center leading-relaxed">
-                Lightning-fast transaction processing with instant reporting and notifications
-              </p>
-            </div>
-          </div>
+                  {feature.icon}
+                </motion.div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  {feature.description}
+                </p>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
       {/* Featured Products Section */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-gray-50">
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-10 sm:mb-12 gap-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-4"
+          >
             <div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-2">
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
                 Featured Products
               </h2>
               <p className="text-gray-600">Discover our most popular financial solutions</p>
             </div>
             <Link
               href="/products"
-              className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold group transition-all"
+              className="group inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold text-lg"
             >
               View All Products
-              <span className="group-hover:translate-x-1 transition-transform">→</span>
+              <motion.span
+                animate={{ x: [0, 5, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              >
+                →
+              </motion.span>
             </Link>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {featuredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
+          </motion.div>
+
+          <motion.div
+            variants={staggerContainer}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          >
+            {featuredProducts.map((product, index) => (
+              <motion.div
+                key={product.id}
+                variants={fadeInUp}
+                custom={index}
+              >
+                <ProductCard product={product} />
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="relative py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white overflow-hidden">
-        <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:20px_20px]" />
-        <div className="absolute inset-0 bg-gradient-to-t from-blue-900/30" />
+      <section className="relative py-24 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 text-white overflow-hidden">
+        {/* Animated Background */}
+        <div className="absolute inset-0">
+          <motion.div
+            className="absolute top-0 left-1/4 w-96 h-96 bg-blue-400/30 rounded-full blur-3xl"
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.3, 0.5, 0.3],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+          <motion.div
+            className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-400/30 rounded-full blur-3xl"
+            animate={{
+              scale: [1, 1.3, 1],
+              opacity: [0.3, 0.5, 0.3],
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+        </div>
 
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Ready to Transform Your Business?
           </h2>
-          <p className="text-lg sm:text-xl lg:text-2xl mb-8 sm:mb-10 text-blue-50">
-            Join thousands of businesses already using FinanceHub
+          <p className="text-xl mb-10 text-white/90 max-w-2xl mx-auto">
+            Join thousands of businesses already using FinanceHub to streamline their financial operations
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/products"
-              className="bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold hover:bg-blue-50 transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 transform inline-block"
-            >
-              Get Started Today →
-            </Link>
-            <Link
-              href="/contact"
-              className="bg-transparent text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/10 transition-all duration-200 border-2 border-white/30 backdrop-blur-sm inline-block"
-            >
-              Contact Sales
-            </Link>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Link
+                href="/products"
+                className="inline-block bg-white text-blue-600 px-8 py-4 rounded-xl font-bold shadow-xl hover:shadow-2xl transition-all"
+              >
+                Get Started Today →
+              </Link>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Link
+                href="/contact"
+                className="inline-block bg-white/10 backdrop-blur-md text-white px-8 py-4 rounded-xl font-bold border-2 border-white/30 hover:bg-white/20 transition-all"
+              >
+                Contact Sales
+              </Link>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </section>
     </div>
   );
