@@ -6,44 +6,42 @@ export default function Home() {
   const featuredProducts = sampleProducts.slice(0, 3);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white py-16 sm:py-24 lg:py-32 overflow-hidden">
         <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:20px_20px]" />
         <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20" />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <div className="inline-block mb-4 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium">
-              ✨ Welcome to the Future of Finance
-            </div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 tracking-tight">
-              Welcome to{" "}
-              <span className="bg-gradient-to-r from-blue-200 to-cyan-200 bg-clip-text text-transparent">
-                FinanceHub
-              </span>
-            </h1>
-            <p className="text-xl sm:text-2xl md:text-3xl mb-6 text-blue-50 font-light">
-              Your Trusted Platform for Financial Software Solutions
-            </p>
-            <p className="text-base sm:text-lg md:text-xl mb-10 max-w-3xl mx-auto text-blue-100 leading-relaxed">
-              Streamline your business operations with our comprehensive suite of
-              financial management tools, payment processing, and analytics solutions.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link
-                href="/products"
-                className="w-full sm:w-auto bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold hover:bg-blue-50 transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 transform"
-              >
-                Browse Products →
-              </Link>
-              <Link
-                href="/analytics"
-                className="w-full sm:w-auto bg-transparent text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/10 transition-all duration-200 border-2 border-white/30 backdrop-blur-sm"
-              >
-                View Analytics
-              </Link>
-            </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 justify-center text-center">
+          <div className="inline-block mb-4 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium">
+            ✨ Welcome to the Future of Finance
+          </div>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 tracking-tight">
+            Welcome to{" "}
+            <span className="bg-gradient-to-r from-blue-200 to-cyan-200 bg-clip-text text-transparent">
+              FinanceHub
+            </span>
+          </h1>
+          <p className="text-xl sm:text-2xl md:text-3xl mb-6 text-blue-50 font-light">
+            Your Trusted Platform for Financial Software Solutions
+          </p>
+          <p className="text-base sm:text-lg md:text-xl mb-10 max-w-3xl mx-auto text-blue-100 leading-relaxed">
+            Streamline your business operations with our comprehensive suite of
+            financial management tools, payment processing, and analytics solutions.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Link
+              href="/products"
+              className="w-full sm:w-auto bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold hover:bg-blue-50 transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 transform"
+            >
+              Browse Products →
+            </Link>
+            <Link
+              href="/analytics"
+              className="w-full sm:w-auto bg-transparent text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/10 transition-all duration-200 border-2 border-white/30 backdrop-blur-sm"
+            >
+              View Analytics
+            </Link>
           </div>
         </div>
       </section>
