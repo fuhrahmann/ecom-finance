@@ -7,42 +7,42 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-md border-b border-gray-200">
+    <nav className="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16 sm:h-20">
+        <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
             <Link href="/" className="flex items-center gap-2 group">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all">
-                <span className="text-white font-bold text-lg sm:text-xl">F</span>
+              <div className="w-9 h-9 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center shadow-md group-hover:shadow-lg transition-all">
+                <span className="text-white font-bold text-lg">F</span>
               </div>
-              <span className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
+              <span className="text-xl font-bold text-gray-900">
                 FinanceHub
               </span>
             </Link>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-1">
-            <Link href="/" className="text-gray-700 hover:text-blue-600 transition-colors px-4 py-2 rounded-lg hover:bg-blue-50 font-medium">
+          <div className="hidden lg:flex items-center space-x-2">
+            <Link href="/" className="text-gray-700 hover:text-blue-600 transition-colors px-3 py-2 text-sm font-medium">
               Home
             </Link>
-            <Link href="/products" className="text-gray-700 hover:text-blue-600 transition-colors px-4 py-2 rounded-lg hover:bg-blue-50 font-medium">
+            <Link href="/products" className="text-gray-700 hover:text-blue-600 transition-colors px-3 py-2 text-sm font-medium">
               Products
             </Link>
-            <Link href="/dashboard" className="text-gray-700 hover:text-blue-600 transition-colors px-4 py-2 rounded-lg hover:bg-blue-50 font-medium">
+            <Link href="/dashboard" className="text-gray-700 hover:text-blue-600 transition-colors px-3 py-2 text-sm font-medium">
               Dashboard
             </Link>
-            <Link href="/orders" className="text-gray-700 hover:text-blue-600 transition-colors px-4 py-2 rounded-lg hover:bg-blue-50 font-medium">
+            <Link href="/orders" className="text-gray-700 hover:text-blue-600 transition-colors px-3 py-2 text-sm font-medium">
               Orders
             </Link>
-            <Link href="/analytics" className="text-gray-700 hover:text-blue-600 transition-colors px-4 py-2 rounded-lg hover:bg-blue-50 font-medium">
+            <Link href="/analytics" className="text-gray-700 hover:text-blue-600 transition-colors px-3 py-2 text-sm font-medium">
               Analytics
             </Link>
             <Link
               href="/cart"
-              className="ml-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-5 py-2.5 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-200 font-semibold shadow-md hover:shadow-lg flex items-center gap-2"
+              className="ml-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium flex items-center gap-1.5"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
               </svg>
               <span>Cart (0)</span>
