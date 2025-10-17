@@ -1,11 +1,11 @@
 'use client';
 
-import { sampleProducts } from "@/data/sampleData";
 import ProductCard from "@/components/ProductCard";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound, use } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Product } from "@/types";
 
 export default function ProductDetailPage({
   params,
@@ -13,16 +13,55 @@ export default function ProductDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = use(params);
-  const product = sampleProducts.find((p) => p.id === id);
+  const [product, setProduct] = useState<Product | null>(null);
+  const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
   const [selectedTab, setSelectedTab] = useState<'features' | 'reviews' | 'specs'>('features');
   const [addedToCart, setAddedToCart] = useState(false);
 
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        // Fetch the specific product
+        const productResponse = await fetch(`/api/products/${id}`);
+        if (!productResponse.ok) {
+          notFound();
+          return;
+        }
+        const productData = await productResponse.json();
+        setProduct(productData);
+
+        // Fetch all products for related products
+        const allProductsResponse = await fetch('/api/products');
+        const allProducts = await allProductsResponse.json();
+        const related = allProducts.filter((p: Product) => p.id !== id).slice(0, 3);
+        setRelatedProducts(related);
+      } catch (error) {
+        console.error('Failed to fetch product:', error);
+        notFound();
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProduct();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading product...</p>
+        </div>
+      </div>
+    );
+  }
+
   if (!product) {
     notFound();
   }
-
-  const relatedProducts = sampleProducts.filter(p => p.id !== product.id).slice(0, 3);
 
   const handleAddToCart = () => {
     setAddedToCart(true);

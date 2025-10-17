@@ -59,7 +59,7 @@ export default function PaymentForm({ totalAmount, onSubmit }: PaymentFormProps)
           <input
             type="text"
             placeholder="1234 5678 9012 3456"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 bg-white"
             value={formData.cardNumber}
             onChange={(e) => setFormData({ ...formData, cardNumber: e.target.value })}
             required
@@ -73,7 +73,7 @@ export default function PaymentForm({ totalAmount, onSubmit }: PaymentFormProps)
           <input
             type="text"
             placeholder="John Doe"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 bg-white"
             value={formData.cardName}
             onChange={(e) => setFormData({ ...formData, cardName: e.target.value })}
             required
@@ -88,7 +88,7 @@ export default function PaymentForm({ totalAmount, onSubmit }: PaymentFormProps)
             <input
               type="text"
               placeholder="MM/YY"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 bg-white"
               value={formData.expiryDate}
               onChange={(e) => setFormData({ ...formData, expiryDate: e.target.value })}
               required
@@ -100,7 +100,7 @@ export default function PaymentForm({ totalAmount, onSubmit }: PaymentFormProps)
             <input
               type="text"
               placeholder="123"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 bg-white"
               value={formData.cvv}
               onChange={(e) => setFormData({ ...formData, cvv: e.target.value })}
               required
@@ -120,7 +120,7 @@ export default function PaymentForm({ totalAmount, onSubmit }: PaymentFormProps)
           <input
             type="text"
             placeholder="123 Main St"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 bg-white"
             value={formData.billingAddress.street}
             onChange={(e) =>
               setFormData({
@@ -138,7 +138,7 @@ export default function PaymentForm({ totalAmount, onSubmit }: PaymentFormProps)
             <input
               type="text"
               placeholder="New York"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 bg-white"
               value={formData.billingAddress.city}
               onChange={(e) =>
                 setFormData({
@@ -155,7 +155,7 @@ export default function PaymentForm({ totalAmount, onSubmit }: PaymentFormProps)
             <input
               type="text"
               placeholder="NY"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 bg-white"
               value={formData.billingAddress.state}
               onChange={(e) =>
                 setFormData({
@@ -175,7 +175,7 @@ export default function PaymentForm({ totalAmount, onSubmit }: PaymentFormProps)
           <input
             type="text"
             placeholder="10001"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 bg-white"
             value={formData.billingAddress.zipCode}
             onChange={(e) =>
               setFormData({

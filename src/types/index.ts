@@ -66,3 +66,16 @@ export interface FinanceAnalytics {
     revenue: number;
   }[];
 }
+
+export interface User {
+  id: string;
+  email: string;
+  name: string;
+  role: 'admin' | 'user';
+  createdAt: string;
+}
+
+export interface AuthSession {
+  user: User;
+  expiresAt: string;
+}
