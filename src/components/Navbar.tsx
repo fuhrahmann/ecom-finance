@@ -93,12 +93,14 @@ export default function Navbar() {
                             {user.role === 'admin' ? 'Admin' : 'User'}
                           </span>
                         </div>
-                        <button
-                          onClick={handleLogout}
-                          className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
-                        >
-                          Sign Out
-                        </button>
+                        <div className="px-4 py-2">
+                          <button
+                            onClick={handleLogout}
+                            className="w-full text-center px-4 py-2 text-sm bg-red-600 hover:bg-red-500 transition-colors rounded-sm"
+                          >
+                            Sign Out
+                          </button>
+                        </div>
                       </div>
                     )}
                   </>
@@ -144,14 +146,31 @@ export default function Navbar() {
       {isMenuOpen && (
         <div className="lg:hidden bg-white border-t border-gray-200 shadow-lg">
           <div className="px-4 pt-3 pb-4 space-y-2">
-            {user && (
+            {user ? (
               <div className="px-4 py-3 bg-blue-50 rounded-xl mb-3">
                 <p className="text-sm font-semibold text-gray-900">{user.name}</p>
                 <p className="text-xs text-gray-600">{user.email}</p>
                 <span className="inline-block mt-1 px-2 py-1 bg-blue-600 text-white text-xs font-semibold rounded">
                   {user.role === 'admin' ? 'Admin' : 'User'}
                 </span>
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setIsMenuOpen(false);
+                  }}
+                  className="px-4 py-3 text-xs text-red-600 hover:bg-red-200 rounded-xl transition-colors font-medium"
+                >
+                  Sign Out
+                </button>
               </div>
+            ) : (
+              <Link
+                href="/login"
+                className="block px-4 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium text-center"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Sign In
+              </Link>
             )}
 
             <Link
@@ -207,26 +226,6 @@ export default function Navbar() {
             >
               Cart (0)
             </Link>
-
-            {user ? (
-              <button
-                onClick={() => {
-                  handleLogout();
-                  setIsMenuOpen(false);
-                }}
-                className="w-full text-left px-4 py-3 text-red-600 hover:bg-red-50 rounded-xl transition-colors font-medium"
-              >
-                Sign Out
-              </button>
-            ) : (
-              <Link
-                href="/login"
-                className="block px-4 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium text-center"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Sign In
-              </Link>
-            )}
           </div>
         </div>
       )}

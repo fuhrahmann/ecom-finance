@@ -192,6 +192,7 @@ export default function ProductManagementPage() {
                     <option value="Payment">Payment</option>
                     <option value="Accounting">Accounting</option>
                     <option value="Invoicing">Invoicing</option>
+                    <option value="Software">Software</option>
                   </select>
                 </div>
 
