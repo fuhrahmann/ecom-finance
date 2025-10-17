@@ -3,7 +3,7 @@
 import ProductCard from "@/components/ProductCard";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound, use } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Product } from "@/types";
 
@@ -12,7 +12,8 @@ export default function ProductDetailPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const { id } = use(params);
+  const router = useRouter();
+  const [productId, setProductId] = useState<string | null>(null);
   const [product, setProduct] = useState<Product | null>(null);
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -20,13 +21,21 @@ export default function ProductDetailPage({
   const [selectedTab, setSelectedTab] = useState<'features' | 'reviews' | 'specs'>('features');
   const [addedToCart, setAddedToCart] = useState(false);
 
+  // Unwrap params
   useEffect(() => {
+    params.then((p) => setProductId(p.id));
+  }, [params]);
+
+  // Fetch product when ID is available
+  useEffect(() => {
+    if (!productId) return;
+
     const fetchProduct = async () => {
       try {
         // Fetch the specific product
-        const productResponse = await fetch(`/api/products/${id}`);
+        const productResponse = await fetch(`/api/products/${productId}`);
         if (!productResponse.ok) {
-          notFound();
+          router.push('/404');
           return;
         }
         const productData = await productResponse.json();
@@ -35,18 +44,18 @@ export default function ProductDetailPage({
         // Fetch all products for related products
         const allProductsResponse = await fetch('/api/products');
         const allProducts = await allProductsResponse.json();
-        const related = allProducts.filter((p: Product) => p.id !== id).slice(0, 3);
+        const related = allProducts.filter((p: Product) => p.id !== productId).slice(0, 3);
         setRelatedProducts(related);
       } catch (error) {
         console.error('Failed to fetch product:', error);
-        notFound();
+        router.push('/404');
       } finally {
         setLoading(false);
       }
     };
 
     fetchProduct();
-  }, [id]);
+  }, [productId, router]);
 
   if (loading) {
     return (
@@ -60,7 +69,7 @@ export default function ProductDetailPage({
   }
 
   if (!product) {
-    notFound();
+    return null;
   }
 
   const handleAddToCart = () => {
