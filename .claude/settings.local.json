@@ -4,7 +4,18 @@
       "Bash(npm run build)",
       "Bash(npm run dev)",
       "Bash(timeout 10 npm run dev:*)",
-      "Bash(npm install framer-motion)"
+      "Bash(npm install framer-motion)",
+      "Bash(npm run dev -- --no-turbopack)",
+      "Bash(taskkill /F /PID 8524)",
+      "Bash(taskkill //F //PID 8524)",
+      "Bash(if exist \".next\" rmdir /s /q .next)",
+      "Bash(npm install)",
+      "Bash(npm uninstall framer-motion motion)",
+      "Bash(npm install framer-motion@latest)",
+      "Bash(taskkill //F //PID 16552)",
+      "Bash(taskkill //F //IM node.exe)",
+      "Bash(timeout /t 5 /nobreak)",
+      "mcp__ide__getDiagnostics"
     ],
     "deny": [],
     "ask": []

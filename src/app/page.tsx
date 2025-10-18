@@ -23,9 +23,9 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-200 dark:bg-gray-800">
+    <main className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative text-black dark:text-white py-24 overflow-hidden">
+      <section className="relative text-black dark:text-emerald-50 py-24 overflow-hidden">
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <motion.div
@@ -59,27 +59,27 @@ export default function Home() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 justify-center text-center">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 tracking-tight">
             Welcome to{" "}
-            <span className="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-teal-500 to-blue-500 dark:from-emerald-400 dark:to-green-400 bg-clip-text text-transparent">
               FinanceHub
             </span>
           </h1>
-          <p className="text-xl sm:text-2xl md:text-3xl mb-6 text-gray-700 dark:text-gray-300 font-light">
+          <p className="text-xl sm:text-2xl md:text-3xl mb-6 text-black dark:text-emerald-100 font-light">
             Your Trusted Platform for Financial Software Solutions
           </p>
-          <p className="text-base sm:text-lg md:text-xl mb-10 max-w-3xl mx-auto text-gray-500 dark:text-gray-300 leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl mb-10 max-w-3xl mx-auto text-black dark:text-emerald-200 leading-relaxed">
             Streamline your business operations with our comprehensive suite of
             financial management tools, payment processing, and analytics solutions.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link
               href="/products"
-              className="w-full sm:w-auto bg-gradient-to-r from-green-400 to-blue-400 text-black px-8 py-4 rounded-xl font-semibold hover:bg-cyian-200 transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 transform"
+              className="w-full sm:w-auto bg-gradient-to-r from-teal-500 to-blue-500 dark:from-emerald-600 dark:to-green-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-teal-600 hover:to-blue-600 dark:hover:from-emerald-500 dark:hover:to-green-500 transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 transform"
             >
               Browse Products →
             </Link>
             <Link
               href="/analytics"
-              className="w-full sm:w-auto bg-transparent text-black dark:text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/10 transition-all duration-200 border-2 border-black dark:border-white backdrop-blur-sm"
+              className="w-full sm:w-auto bg-transparent text-black dark:text-emerald-100 px-8 py-4 rounded-xl font-semibold hover:bg-white/10 dark:hover:bg-emerald-900/30 transition-all duration-200 border-2 border-black dark:border-emerald-400 backdrop-blur-sm"
             >
               View Analytics
             </Link>
@@ -97,10 +97,10 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 dark:text-white">
+            <h2 className="text-4xl md:text-5xl font-bold text-black dark:text-emerald-50 mb-4">
               Why Choose FinanceHub?
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            <p className="text-lg text-black dark:text-emerald-200 max-w-2xl mx-auto">
               Powerful features designed to transform your financial operations
             </p>
           </motion.div>
@@ -136,7 +136,7 @@ export default function Home() {
                 key={index}
                 variants={fadeInUp}
                 whileHover={{ y: -8, scale: 1.02 }}
-                className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100"
+                className="group bg-white dark:bg-black/40 dark:border-emerald-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100"
               >
                 <motion.div
                   className={`w-16 h-16 bg-gradient-to-br ${feature.color} rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}
@@ -145,10 +145,10 @@ export default function Home() {
                 >
                   {feature.icon}
                 </motion.div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                <h3 className="text-xl font-bold text-black dark:text-emerald-50 mb-3">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-black dark:text-emerald-200 leading-relaxed">
                   {feature.description}
                 </p>
               </motion.div>
@@ -168,14 +168,14 @@ export default function Home() {
             className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-4"
           >
             <div>
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-2">
+              <h2 className="text-4xl md:text-5xl font-bold text-black dark:text-emerald-50 mb-2">
                 Featured Products
               </h2>
-              <p className="text-gray-600 dark:text-gray-300">Discover our most popular financial solutions</p>
+              <p className="text-black dark:text-emerald-200">Discover our most popular financial solutions</p>
             </div>
             <Link
               href="/products"
-              className="group inline-flex items-center gap-2 text-blue-600 dark:text-white hover:text-blue-700 dark:hover:text-gray-500 font-semibold text-lg"
+              className="group inline-flex items-center gap-2 text-teal-600 dark:text-emerald-300 hover:text-teal-700 dark:hover:text-emerald-200 font-semibold text-lg"
             >
               View All Products
               <motion.span
