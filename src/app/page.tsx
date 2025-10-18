@@ -23,9 +23,9 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-black-50">
+    <main className="min-h-screen bg-gray-200 dark:bg-gray-800">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-700 text-white py-24 overflow-hidden">
+      <section className="relative text-black dark:text-white py-24 overflow-hidden">
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <motion.div
@@ -57,32 +57,29 @@ export default function Home() {
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 justify-center text-center">
-          <div className="inline-block mb-4 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium">
-            ✨ Welcome to the Future of Finance
-          </div>
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 tracking-tight">
             Welcome to{" "}
-            <span className="bg-gradient-to-r from-blue-200 to-cyan-200 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
               FinanceHub
             </span>
           </h1>
-          <p className="text-xl sm:text-2xl md:text-3xl mb-6 text-blue-50 font-light">
+          <p className="text-xl sm:text-2xl md:text-3xl mb-6 text-gray-700 dark:text-gray-300 font-light">
             Your Trusted Platform for Financial Software Solutions
           </p>
-          <p className="text-base sm:text-lg md:text-xl mb-10 max-w-3xl mx-auto text-blue-100 leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl mb-10 max-w-3xl mx-auto text-gray-500 dark:text-gray-300 leading-relaxed">
             Streamline your business operations with our comprehensive suite of
             financial management tools, payment processing, and analytics solutions.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link
               href="/products"
-              className="w-full sm:w-auto bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold hover:bg-blue-50 transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 transform"
+              className="w-full sm:w-auto bg-gradient-to-r from-green-400 to-blue-400 text-black px-8 py-4 rounded-xl font-semibold hover:bg-cyian-200 transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 transform"
             >
               Browse Products →
             </Link>
             <Link
               href="/analytics"
-              className="w-full sm:w-auto bg-transparent text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/10 transition-all duration-200 border-2 border-white/30 backdrop-blur-sm"
+              className="w-full sm:w-auto bg-transparent text-black dark:text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/10 transition-all duration-200 border-2 border-black dark:border-white backdrop-blur-sm"
             >
               View Analytics
             </Link>
@@ -91,7 +88,7 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
+      <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -100,10 +97,10 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 dark:text-white">
               Why Choose FinanceHub?
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
               Powerful features designed to transform your financial operations
             </p>
           </motion.div>
@@ -161,7 +158,7 @@ export default function Home() {
       </section>
 
       {/* Featured Products Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -171,14 +168,14 @@ export default function Home() {
             className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-4"
           >
             <div>
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-2">
                 Featured Products
               </h2>
-              <p className="text-gray-600">Discover our most popular financial solutions</p>
+              <p className="text-gray-600 dark:text-gray-300">Discover our most popular financial solutions</p>
             </div>
             <Link
               href="/products"
-              className="group inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold text-lg"
+              className="group inline-flex items-center gap-2 text-blue-600 dark:text-white hover:text-blue-700 dark:hover:text-gray-500 font-semibold text-lg"
             >
               View All Products
               <motion.span
@@ -211,7 +208,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="relative py-24 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 text-white overflow-hidden">
+      <section className="relative py-24 bg-gradient-to-br from-green-400 to-blue-400 text-white overflow-hidden">
         {/* Animated Background */}
         <div className="absolute inset-0">
           <motion.div

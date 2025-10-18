@@ -18,7 +18,8 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-200">
+    // <nav className="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-200">
+    <nav className="sticky top-0 z-50 bg-gradient-to-br from-green-400 to-blue-400">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
@@ -34,31 +35,31 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-2">
-            <Link href="/" className="text-gray-700 hover:text-blue-600 transition-colors px-3 py-2 text-sm font-medium">
+            <Link href="/" className="text-black hover:text-green-100 transition-colors px-3 py-2 text-sm font-medium">
               Home
             </Link>
-            <Link href="/products" className="text-gray-700 hover:text-blue-600 transition-colors px-3 py-2 text-sm font-medium">
+            <Link href="/products" className="text-black hover:text-green-100 transition-colors px-3 py-2 text-sm font-medium">
               Products
             </Link>
 
             {user && user.role === 'admin' && (
-              <Link href="/admin/products" className="text-gray-700 hover:text-blue-600 transition-colors px-3 py-2 text-sm font-medium">
+              <Link href="/admin/products" className="text-black hover:text-green-100 transition-colors px-3 py-2 text-sm font-medium">
                 Manage Products
               </Link>
             )}
 
-            <Link href="/dashboard" className="text-gray-700 hover:text-blue-600 transition-colors px-3 py-2 text-sm font-medium">
+            <Link href="/dashboard" className="text-black hover:text-green-100 transition-colors px-3 py-2 text-sm font-medium">
               Dashboard
             </Link>
-            <Link href="/orders" className="text-gray-700 hover:text-blue-600 transition-colors px-3 py-2 text-sm font-medium">
+            <Link href="/orders" className="text-black hover:text-green-100 transition-colors px-3 py-2 text-sm font-medium">
               Orders
             </Link>
-            <Link href="/analytics" className="text-gray-700 hover:text-blue-600 transition-colors px-3 py-2 text-sm font-medium">
+            <Link href="/analytics" className="text-black hover:text-green-100 transition-colors px-3 py-2 text-sm font-medium">
               Analytics
             </Link>
             <Link
               href="/cart"
-              className="ml-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium flex items-center gap-1.5"
+              className="ml-2 bg-green-200 text-black px-4 py-2 rounded-lg hover:bg-green-300 transition-colors text-sm font-medium flex items-center gap-1.5"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
