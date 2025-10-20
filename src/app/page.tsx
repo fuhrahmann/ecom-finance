@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative text-black dark:text-emerald-50 py-24 overflow-hidden">
+      <section className="relative text-black dark:text-white py-24 overflow-hidden">
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <motion.div
@@ -63,10 +63,10 @@ export default function Home() {
               FinanceHub
             </span>
           </h1>
-          <p className="text-xl sm:text-2xl md:text-3xl mb-6 text-black dark:text-emerald-100 font-light">
+          <p className="text-xl sm:text-2xl md:text-3xl mb-6 text-black dark:text-white font-light">
             Your Trusted Platform for Financial Software Solutions
           </p>
-          <p className="text-base sm:text-lg md:text-xl mb-10 max-w-3xl mx-auto text-black dark:text-emerald-200 leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl mb-10 max-w-3xl mx-auto text-black dark:text-white leading-relaxed">
             Streamline your business operations with our comprehensive suite of
             financial management tools, payment processing, and analytics solutions.
           </p>
@@ -79,7 +79,7 @@ export default function Home() {
             </Link>
             <Link
               href="/analytics"
-              className="w-full sm:w-auto bg-transparent text-black dark:text-emerald-100 px-8 py-4 rounded-xl font-semibold hover:bg-white/10 dark:hover:bg-emerald-900/30 transition-all duration-200 border-2 border-black dark:border-emerald-400 backdrop-blur-sm"
+              className="w-full sm:w-auto bg-transparent text-black dark:text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-200 border-2 border-black dark:border-white backdrop-blur-sm"
             >
               View Analytics
             </Link>
@@ -97,10 +97,10 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-black dark:text-emerald-50 mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-black dark:text-white mb-4">
               Why Choose FinanceHub?
             </h2>
-            <p className="text-lg text-black dark:text-emerald-200 max-w-2xl mx-auto">
+            <p className="text-lg text-black dark:text-white max-w-2xl mx-auto">
               Powerful features designed to transform your financial operations
             </p>
           </motion.div>
@@ -145,10 +145,10 @@ export default function Home() {
                 >
                   {feature.icon}
                 </motion.div>
-                <h3 className="text-xl font-bold text-black dark:text-emerald-50 mb-3">
+                <h3 className="text-xl font-bold text-black dark:text-white mb-3">
                   {feature.title}
                 </h3>
-                <p className="text-black dark:text-emerald-200 leading-relaxed">
+                <p className="text-black dark:text-white leading-relaxed">
                   {feature.description}
                 </p>
               </motion.div>
@@ -168,10 +168,10 @@ export default function Home() {
             className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-4"
           >
             <div>
-              <h2 className="text-4xl md:text-5xl font-bold text-black dark:text-emerald-50 mb-2">
+              <h2 className="text-4xl md:text-5xl font-bold text-black dark:text-white mb-2">
                 Featured Products
               </h2>
-              <p className="text-black dark:text-emerald-200">Discover our most popular financial solutions</p>
+              <p className="text-black dark:text-white">Discover our most popular financial solutions</p>
             </div>
             <Link
               href="/products"
