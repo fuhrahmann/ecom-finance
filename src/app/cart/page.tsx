@@ -1,16 +1,18 @@
 'use client';
 
-import { useState } from 'react';
+import { useCart } from '@/contexts/CartContext';
+import { formatIDR } from '@/utils/currency';
 import Image from 'next/image';
 import Link from 'next/link';
-import CartSummary from '@/components/CartSummary';
-import { CartItem } from '@/types';
 
 export default function CartPage() {
-  // This would normally come from a state management solution (Redux, Zustand, Context, etc.)
-  const [cartItems] = useState<CartItem[]>([]);
+  const { cart, removeFromCart, updateQuantity, cartTotal, clearCart } = useCart();
 
-  if (cartItems.length === 0) {
+  const handleCheckout = () => {
+    alert('Checkout functionality will be implemented soon!');
+  };
+
+  if (cart.length === 0) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
@@ -91,14 +93,14 @@ export default function CartPage() {
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         <div className="mb-8">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-2">Shopping Cart</h1>
-          <p className="text-gray-600">{cartItems.length} {cartItems.length === 1 ? 'item' : 'items'} in your cart</p>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-2">Shopping Cart</h1>
+          <p className="text-gray-600 dark:text-gray-400">{cart.length} {cart.length === 1 ? 'item' : 'items'} in your cart</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
           {/* Cart Items */}
           <div className="lg:col-span-2 space-y-4">
-            {cartItems.map((item) => (
+            {cart.map((item) => (
               <div
                 key={item.id}
                 className="bg-white rounded-2xl shadow-lg p-4 sm:p-6 border border-gray-100 hover:shadow-xl transition-shadow"
@@ -124,7 +126,9 @@ export default function CartPage() {
                           </span>
                         </p>
                       </div>
-                      <button className="text-red-500 hover:text-red-700 hover:bg-red-50 p-2 rounded-lg transition-colors flex-shrink-0">
+                      <button
+                        onClick={() => removeFromCart(item.id)}
+                        className="text-red-500 hover:text-red-700 hover:bg-red-50 p-2 rounded-lg transition-colors flex-shrink-0">
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                         </svg>
@@ -133,24 +137,29 @@ export default function CartPage() {
 
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                       <p className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
-                        ${item.price.toFixed(2)}
+                        {formatIDR(item.price)}
                       </p>
 
                       <div className="flex items-center gap-3">
-                        <span className="text-sm text-gray-600 font-medium">Qty:</span>
-                        <div className="flex items-center border-2 border-gray-200 rounded-xl overflow-hidden bg-white">
-                          <button className="w-9 h-9 bg-gray-50 hover:bg-gray-100 transition-colors flex items-center justify-center font-bold text-gray-700">
+                        <span className="text-sm text-gray-600 dark:text-gray-400 font-medium">Qty:</span>
+                        <div className="flex items-center border-2 border-gray-200 dark:border-gray-600 rounded-xl overflow-hidden bg-white dark:bg-gray-700">
+                          <button
+                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                            className="w-9 h-9 bg-gray-50 dark:bg-gray-600 hover:bg-gray-100 dark:hover:bg-gray-500 transition-colors flex items-center justify-center font-bold text-gray-700 dark:text-white">
                             −
                           </button>
-                          <span className="w-12 text-center font-bold text-gray-900">
+                          <span className="w-12 text-center font-bold text-gray-900 dark:text-white">
                             {item.quantity}
                           </span>
-                          <button className="w-9 h-9 bg-gray-50 hover:bg-gray-100 transition-colors flex items-center justify-center font-bold text-gray-700">
+                          <button
+                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                            disabled={item.quantity >= item.stock}
+                            className="w-9 h-9 bg-gray-50 dark:bg-gray-600 hover:bg-gray-100 dark:hover:bg-gray-500 transition-colors flex items-center justify-center font-bold text-gray-700 dark:text-white disabled:opacity-50">
                             +
                           </button>
                         </div>
-                        <span className="text-sm text-gray-600 hidden sm:inline">
-                          Total: <span className="font-bold text-gray-900">${(item.price * item.quantity).toFixed(2)}</span>
+                        <span className="text-sm text-gray-600 dark:text-gray-400 hidden sm:inline">
+                          Total: <span className="font-bold text-gray-900 dark:text-white">{formatIDR(item.price * item.quantity)}</span>
                         </span>
                       </div>
                     </div>
@@ -174,7 +183,40 @@ export default function CartPage() {
           {/* Cart Summary - Sticky on desktop */}
           <div className="lg:col-span-1">
             <div className="sticky top-24">
-              <CartSummary items={cartItems} />
+              <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 border border-gray-100 dark:border-gray-700">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Order Summary</h2>
+
+                <div className="space-y-4 mb-6">
+                  <div className="flex justify-between text-gray-600 dark:text-gray-400">
+                    <span>Subtotal</span>
+                    <span className="font-semibold text-gray-900 dark:text-white">{formatIDR(cartTotal)}</span>
+                  </div>
+                  <div className="flex justify-between text-gray-600 dark:text-gray-400">
+                    <span>Shipping</span>
+                    <span className="font-semibold text-green-600 dark:text-green-400">FREE</span>
+                  </div>
+                  <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
+                    <div className="flex justify-between text-xl font-bold">
+                      <span className="text-gray-900 dark:text-white">Total</span>
+                      <span className="bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">{formatIDR(cartTotal)}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <button
+                  onClick={handleCheckout}
+                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-4 px-4 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all font-semibold shadow-lg hover:shadow-xl mb-3"
+                >
+                  Proceed to Checkout
+                </button>
+
+                <button
+                  onClick={clearCart}
+                  className="w-full text-center text-sm text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 font-medium py-2"
+                >
+                  Clear Cart
+                </button>
+              </div>
             </div>
           </div>
         </div>

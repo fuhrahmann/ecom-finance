@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "FinanceHub - E-Commerce Finance Solutions",
-  description: "Your trusted platform for financial software and e-commerce solutions. Manage payments, analytics, and business operations.",
-  keywords: ["finance", "e-commerce", "payments", "analytics", "financial software"],
+  title: "ShopHub - Your Premium E-Commerce Destination",
+  description: "Discover amazing products from top brands at unbeatable prices. Shop electronics, fashion, accessories, and more with fast shipping.",
+  keywords: ["e-commerce", "online shopping", "electronics", "fashion", "accessories", "home goods"],
 };
 
 export default function RootLayout({

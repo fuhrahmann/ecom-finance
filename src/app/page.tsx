@@ -4,9 +4,21 @@ import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
 import { sampleProducts } from "@/data/sampleData";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function Home() {
   const featuredProducts = sampleProducts.slice(0, 3);
+  const router = useRouter();
+  const { isAdmin, loading } = useAuth();
+
+  // Redirect admin users to admin dashboard
+  useEffect(() => {
+    if (!loading && isAdmin) {
+      router.push('/admin');
+    }
+  }, [isAdmin, loading, router]);
 
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
@@ -60,15 +72,15 @@ export default function Home() {
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 tracking-tight">
             Welcome to{" "}
             <span className="bg-gradient-to-r from-teal-500 to-blue-500 dark:from-emerald-400 dark:to-green-400 bg-clip-text text-transparent">
-              FinanceHub
+              ShopHub
             </span>
           </h1>
           <p className="text-xl sm:text-2xl md:text-3xl mb-6 text-black dark:text-white font-light">
-            Your Trusted Platform for Financial Software Solutions
+            Your Premium E-Commerce Destination
           </p>
           <p className="text-base sm:text-lg md:text-xl mb-10 max-w-3xl mx-auto text-black dark:text-white leading-relaxed">
-            Streamline your business operations with our comprehensive suite of
-            financial management tools, payment processing, and analytics solutions.
+            Discover amazing products from top brands at unbeatable prices.
+            Shop electronics, fashion, accessories, and more with fast shipping and secure checkout.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link
@@ -98,10 +110,10 @@ export default function Home() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold text-black dark:text-white mb-4">
-              Why Choose FinanceHub?
+              Why Shop With Us?
             </h2>
             <p className="text-lg text-black dark:text-white max-w-2xl mx-auto">
-              Powerful features designed to transform your financial operations
+              Experience the best online shopping with unmatched quality and service
             </p>
           </motion.div>
 
@@ -114,21 +126,21 @@ export default function Home() {
           >
             {[
               {
-                icon: "🔒",
-                title: "Secure Payments",
-                description: "Enterprise-grade security with end-to-end encryption for all your financial transactions",
+                icon: "🚚",
+                title: "Fast Shipping",
+                description: "Get your orders delivered quickly with free shipping on orders over $50",
                 color: "from-blue-500 to-blue-600"
               },
               {
-                icon: "📊",
-                title: "Advanced Analytics",
-                description: "Real-time insights and comprehensive reports on your financial performance",
+                icon: "🔒",
+                title: "Secure Checkout",
+                description: "Shop with confidence using our encrypted payment system and buyer protection",
                 color: "from-green-500 to-emerald-600"
               },
               {
-                icon: "⚡",
-                title: "Fast Processing",
-                description: "Lightning-fast transaction processing with instant reporting and notifications",
+                icon: "⭐",
+                title: "Premium Quality",
+                description: "Carefully curated products from trusted brands with verified customer reviews",
                 color: "from-purple-500 to-violet-600"
               }
             ].map((feature, index) => (
@@ -171,7 +183,7 @@ export default function Home() {
               <h2 className="text-4xl md:text-5xl font-bold text-black dark:text-white mb-2">
                 Featured Products
               </h2>
-              <p className="text-black dark:text-white">Discover our most popular financial solutions</p>
+              <p className="text-black dark:text-white">Discover our best-selling items handpicked just for you</p>
             </div>
             <Link
               href="/products"
@@ -245,10 +257,10 @@ export default function Home() {
           className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Ready to Transform Your Business?
+            Ready to Start Shopping?
           </h2>
           <p className="text-xl mb-10 text-white/90 max-w-2xl mx-auto">
-            Join thousands of businesses already using FinanceHub to streamline their financial operations
+            Join thousands of happy customers who shop with confidence at ShopHub
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>

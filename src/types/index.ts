@@ -5,8 +5,14 @@ export interface Product {
   price: number;
   category: string;
   image: string;
+  images?: string[];
   stock: number;
   rating?: number;
+  tags?: string[];
+  brand?: string;
+  isActive?: boolean;
+  discount?: number;
+  sku?: string;
 }
 
 export interface CartItem extends Product {

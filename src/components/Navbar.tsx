@@ -3,13 +3,15 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
+import { useCart } from '@/contexts/CartContext';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useRouter } from 'next/navigation';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const { user, logout, loading } = useAuth();
+  const { user, logout, loading, isAdmin } = useAuth();
+  const { cartCount } = useCart();
   const { theme, toggleTheme } = useTheme();
   const router = useRouter();
 
@@ -25,11 +27,11 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
             <Link href="/" className="flex items-center gap-2 group">
-              <div className="w-9 h-9 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center shadow-md group-hover:shadow-lg transition-all">
-                <span className="text-white font-bold text-lg">F</span>
+              <div className="w-9 h-9 bg-gradient-to-br from-teal-500 to-blue-500 dark:from-emerald-500 dark:to-green-500 rounded-lg flex items-center justify-center shadow-md group-hover:shadow-lg transition-all">
+                <span className="text-white font-bold text-lg">S</span>
               </div>
-              <span className="text-xl font-bold text-black dark:text-emerald-50">
-                FinanceHub
+              <span className="text-xl font-bold bg-gradient-to-r from-teal-600 to-blue-600 dark:from-emerald-400 dark:to-green-400 bg-clip-text text-transparent">
+                ShopHub
               </span>
             </Link>
           </div>
@@ -43,18 +45,17 @@ export default function Navbar() {
               Products
             </Link>
 
-            {user && user.role === 'admin' && (
-              <Link href="/admin/products" className="text-black dark:text-emerald-100 hover:text-teal-600 dark:hover:text-emerald-300 transition-colors px-3 py-2 text-sm font-medium">
-                Manage Products
-              </Link>
+            {isAdmin && (
+              <>
+                <Link href="/admin" className="text-black dark:text-emerald-100 hover:text-teal-600 dark:hover:text-emerald-300 transition-colors px-3 py-2 text-sm font-medium">
+                  Admin
+                </Link>
+                <Link href="/admin/products" className="text-black dark:text-emerald-100 hover:text-teal-600 dark:hover:text-emerald-300 transition-colors px-3 py-2 text-sm font-medium">
+                  Manage Products
+                </Link>
+              </>
             )}
 
-            <Link href="/dashboard" className="text-black dark:text-emerald-100 hover:text-teal-600 dark:hover:text-emerald-300 transition-colors px-3 py-2 text-sm font-medium">
-              Dashboard
-            </Link>
-            <Link href="/orders" className="text-black dark:text-emerald-100 hover:text-teal-600 dark:hover:text-emerald-300 transition-colors px-3 py-2 text-sm font-medium">
-              Orders
-            </Link>
             <Link href="/analytics" className="text-black dark:text-emerald-100 hover:text-teal-600 dark:hover:text-emerald-300 transition-colors px-3 py-2 text-sm font-medium">
               Analytics
             </Link>
@@ -65,7 +66,7 @@ export default function Navbar() {
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
               </svg>
-              <span>Cart (0)</span>
+              <span>Cart ({cartCount})</span>
             </Link>
 
             {/* Theme Toggle Button */}
@@ -224,30 +225,24 @@ export default function Navbar() {
               Products
             </Link>
 
-            {user && user.role === 'admin' && (
-              <Link
-                href="/admin/products"
-                className="block px-4 py-3 text-black dark:text-emerald-100 hover:bg-teal-50 dark:hover:bg-emerald-900/30 hover:text-teal-600 dark:hover:text-emerald-300 rounded-xl transition-colors font-medium"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Manage Products
-              </Link>
+            {isAdmin && (
+              <>
+                <Link
+                  href="/admin"
+                  className="block px-4 py-3 text-black dark:text-emerald-100 hover:bg-teal-50 dark:hover:bg-emerald-900/30 hover:text-teal-600 dark:hover:text-emerald-300 rounded-xl transition-colors font-medium"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Admin Dashboard
+                </Link>
+                <Link
+                  href="/admin/products"
+                  className="block px-4 py-3 text-black dark:text-emerald-100 hover:bg-teal-50 dark:hover:bg-emerald-900/30 hover:text-teal-600 dark:hover:text-emerald-300 rounded-xl transition-colors font-medium"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Manage Products
+                </Link>
+              </>
             )}
-
-            <Link
-              href="/dashboard"
-              className="block px-4 py-3 text-black dark:text-emerald-100 hover:bg-teal-50 dark:hover:bg-emerald-900/30 hover:text-teal-600 dark:hover:text-emerald-300 rounded-xl transition-colors font-medium"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Dashboard
-            </Link>
-            <Link
-              href="/orders"
-              className="block px-4 py-3 text-black dark:text-emerald-100 hover:bg-teal-50 dark:hover:bg-emerald-900/30 hover:text-teal-600 dark:hover:text-emerald-300 rounded-xl transition-colors font-medium"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Orders
-            </Link>
             <Link
               href="/analytics"
               className="block px-4 py-3 text-black dark:text-emerald-100 hover:bg-teal-50 dark:hover:bg-emerald-900/30 hover:text-teal-600 dark:hover:text-emerald-300 rounded-xl transition-colors font-medium"
@@ -260,7 +255,7 @@ export default function Navbar() {
               className="block px-4 py-3 bg-teal-500 dark:bg-emerald-600 text-white rounded-xl hover:bg-teal-600 dark:hover:bg-emerald-500 transition-all font-semibold shadow-md"
               onClick={() => setIsMenuOpen(false)}
             >
-              Cart (0)
+              Cart ({cartCount})
             </Link>
           </div>
         </div>

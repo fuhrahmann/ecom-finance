@@ -6,73 +6,101 @@ import { User } from '@/types';
 interface AuthContextType {
   user: User | null;
   loading: boolean;
+  isAuthenticated: boolean;
+  isAdmin: boolean;
   login: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
   logout: () => Promise<void>;
-  checkAuth: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+// Sample users for demo purposes
+const DEMO_USERS = [
+  {
+    id: '1',
+    email: 'admin@shophub.com',
+    password: 'admin123',
+    name: 'Admin User',
+    role: 'admin' as const,
+    createdAt: new Date().toISOString(),
+  },
+  {
+    id: '2',
+    email: 'customer1@email.com',
+    password: 'customer123',
+    name: 'John Doe',
+    role: 'user' as const,
+    createdAt: new Date().toISOString(),
+  },
+  {
+    id: '3',
+    email: 'customer2@email.com',
+    password: 'customer123',
+    name: 'Jane Smith',
+    role: 'user' as const,
+    createdAt: new Date().toISOString(),
+  },
+  {
+    id: '4',
+    email: 'customer3@email.com',
+    password: 'customer123',
+    name: 'Mike Johnson',
+    role: 'user' as const,
+    createdAt: new Date().toISOString(),
+  },
+];
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const checkAuth = async () => {
-    try {
-      const response = await fetch('/api/auth/session');
-      if (response.ok) {
-        const data = await response.json();
-        setUser(data.user);
-      } else {
-        setUser(null);
-      }
-    } catch (error) {
-      console.error('Auth check failed:', error);
-      setUser(null);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    checkAuth();
+    // Check for stored session on mount
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch (error) {
+        console.error('Error parsing stored user:', error);
+        localStorage.removeItem('user');
+      }
+    }
+    setLoading(false);
   }, []);
 
   const login = async (email: string, password: string) => {
-    try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 500));
 
-      const data = await response.json();
+    const foundUser = DEMO_USERS.find(
+      u => u.email === email && u.password === password
+    );
 
-      if (response.ok) {
-        setUser(data.user);
-        return { success: true };
-      } else {
-        return { success: false, error: data.error || 'Login failed' };
-      }
-    } catch (error) {
-      return { success: false, error: 'Network error' };
+    if (foundUser) {
+      const { password: _, ...userWithoutPassword } = foundUser;
+      setUser(userWithoutPassword);
+      localStorage.setItem('user', JSON.stringify(userWithoutPassword));
+      return { success: true };
     }
+
+    return { success: false, error: 'Invalid email or password' };
   };
 
   const logout = async () => {
-    try {
-      await fetch('/api/auth/logout', { method: 'POST' });
-      setUser(null);
-    } catch (error) {
-      console.error('Logout failed:', error);
-    }
+    setUser(null);
+    localStorage.removeItem('user');
   };
 
-  return (
-    <AuthContext.Provider value={{ user, loading, login, logout, checkAuth }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  const value: AuthContextType = {
+    user,
+    loading,
+    isAuthenticated: !!user,
+    isAdmin: user?.role === 'admin',
+    login,
+    logout,
+  };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {

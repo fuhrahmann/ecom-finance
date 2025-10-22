@@ -15,7 +15,9 @@
       "Bash(taskkill //F //PID 16552)",
       "Bash(taskkill //F //IM node.exe)",
       "Bash(timeout /t 5 /nobreak)",
-      "mcp__ide__getDiagnostics"
+      "mcp__ide__getDiagnostics",
+      "Bash(dir \"C:\\WILLY\\ecom-finance\" /B)",
+      "Bash(dir:*)"
     ],
     "deny": [],
     "ask": []

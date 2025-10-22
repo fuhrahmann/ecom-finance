@@ -27,16 +27,6 @@ body {
   font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
   position: relative;
   min-height: 100vh;
-  color: #000000 !important;
-}
-
-.dark body {
-  color: #ffffff !important;
-}
-
-/* Ensure main content inherits correct colors */
-main {
-  color: inherit;
 }
 
 /* Light mode background with teal glow */

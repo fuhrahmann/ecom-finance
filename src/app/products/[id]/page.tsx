@@ -6,6 +6,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Product } from "@/types";
+import { sampleProducts } from "@/data/sampleData";
+import { formatIDR } from "@/utils/currency";
+import { useCart } from "@/contexts/CartContext";
 
 export default function ProductDetailPage({
   params,
@@ -13,10 +16,10 @@ export default function ProductDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const router = useRouter();
+  const { addToCart } = useCart();
   const [productId, setProductId] = useState<string | null>(null);
   const [product, setProduct] = useState<Product | null>(null);
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
   const [selectedTab, setSelectedTab] = useState<'features' | 'reviews' | 'specs'>('features');
   const [addedToCart, setAddedToCart] = useState(false);
@@ -26,53 +29,29 @@ export default function ProductDetailPage({
     params.then((p) => setProductId(p.id));
   }, [params]);
 
-  // Fetch product when ID is available
+  // Get product from sample data when ID is available
   useEffect(() => {
     if (!productId) return;
 
-    const fetchProduct = async () => {
-      try {
-        // Fetch the specific product
-        const productResponse = await fetch(`/api/products/${productId}`);
-        if (!productResponse.ok) {
-          router.push('/404');
-          return;
-        }
-        const productData = await productResponse.json();
-        setProduct(productData);
-
-        // Fetch all products for related products
-        const allProductsResponse = await fetch('/api/products');
-        const allProducts = await allProductsResponse.json();
-        const related = allProducts.filter((p: Product) => p.id !== productId).slice(0, 3);
-        setRelatedProducts(related);
-      } catch (error) {
-        console.error('Failed to fetch product:', error);
-        router.push('/404');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProduct();
+    const foundProduct = sampleProducts.find(p => p.id === productId);
+    if (foundProduct) {
+      setProduct(foundProduct);
+      // Get related products from same category
+      const related = sampleProducts
+        .filter((p: Product) => p.category === foundProduct.category && p.id !== productId)
+        .slice(0, 3);
+      setRelatedProducts(related);
+    } else {
+      router.push('/products');
+    }
   }, [productId, router]);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading product...</p>
-        </div>
-      </div>
-    );
-  }
 
   if (!product) {
     return null;
   }
 
   const handleAddToCart = () => {
+    addToCart(product, quantity);
     setAddedToCart(true);
     setTimeout(() => setAddedToCart(false), 3000);
   };
@@ -169,21 +148,25 @@ export default function ProductDetailPage({
                 {product.description}
               </p>
 
-              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 mb-6 border border-blue-100">
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl p-6 mb-6 border border-blue-100 dark:border-blue-800">
                 <div className="flex items-baseline gap-2 mb-2">
-                  <span className="text-5xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
-                    ${product.price.toFixed(2)}
+                  <span className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
+                    {formatIDR(product.price)}
                   </span>
-                  <span className="text-gray-500 line-through text-xl">
-                    ${(product.price * 1.3).toFixed(2)}
-                  </span>
+                  {product.discount && (
+                    <span className="text-gray-500 dark:text-gray-400 line-through text-xl">
+                      {formatIDR(product.price / (1 - product.discount / 100))}
+                    </span>
+                  )}
                 </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <span className="bg-green-500 text-white px-2 py-1 rounded-md font-semibold">
-                    Save 30%
-                  </span>
-                  <span className="text-gray-600">Limited time offer</span>
-                </div>
+                {product.discount && (
+                  <div className="flex items-center gap-2 text-sm">
+                    <span className="bg-green-500 text-white px-2 py-1 rounded-md font-semibold">
+                      Save {product.discount}%
+                    </span>
+                    <span className="text-gray-600 dark:text-gray-400">Limited time offer</span>
+                  </div>
+                )}
               </div>
 
               <div className="mb-6 p-4 bg-gray-50 rounded-xl">
@@ -225,8 +208,8 @@ export default function ProductDetailPage({
                       +
                     </button>
                   </div>
-                  <span className="text-sm text-gray-500">
-                    Total: <span className="font-bold text-gray-900">${(product.price * quantity).toFixed(2)}</span>
+                  <span className="text-sm text-gray-500 dark:text-gray-400">
+                    Total: <span className="font-bold text-gray-900 dark:text-white">{formatIDR(product.price * quantity)}</span>
                   </span>
                 </div>
               </div>

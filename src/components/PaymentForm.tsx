@@ -40,26 +40,26 @@ export default function PaymentForm({ totalAmount, onSubmit }: PaymentFormProps)
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-6 space-y-6">
-      <h2 className="text-2xl font-bold text-gray-900">Payment Information</h2>
+    <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 space-y-6 border border-gray-200 dark:border-gray-700">
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Payment Information</h2>
 
-      <div className="border-b pb-4">
-        <p className="text-sm text-gray-600">Total Amount</p>
-        <p className="text-3xl font-bold text-blue-600">${totalAmount.toFixed(2)}</p>
+      <div className="border-b border-gray-200 dark:border-gray-700 pb-4">
+        <p className="text-sm text-gray-600 dark:text-gray-400">Total Amount</p>
+        <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">${totalAmount.toFixed(2)}</p>
       </div>
 
       {/* Card Details */}
       <div className="space-y-4">
-        <h3 className="font-semibold text-gray-900">Card Details</h3>
+        <h3 className="font-semibold text-gray-900 dark:text-white">Card Details</h3>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Card Number
           </label>
           <input
             type="text"
             placeholder="1234 5678 9012 3456"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 bg-white"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white bg-white dark:bg-gray-700"
             value={formData.cardNumber}
             onChange={(e) => setFormData({ ...formData, cardNumber: e.target.value })}
             required
@@ -67,13 +67,13 @@ export default function PaymentForm({ totalAmount, onSubmit }: PaymentFormProps)
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Cardholder Name
           </label>
           <input
             type="text"
             placeholder="John Doe"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 bg-white"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white bg-white dark:bg-gray-700"
             value={formData.cardName}
             onChange={(e) => setFormData({ ...formData, cardName: e.target.value })}
             required
@@ -82,13 +82,13 @@ export default function PaymentForm({ totalAmount, onSubmit }: PaymentFormProps)
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Expiry Date
             </label>
             <input
               type="text"
               placeholder="MM/YY"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 bg-white"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white bg-white dark:bg-gray-700"
               value={formData.expiryDate}
               onChange={(e) => setFormData({ ...formData, expiryDate: e.target.value })}
               required
@@ -96,11 +96,11 @@ export default function PaymentForm({ totalAmount, onSubmit }: PaymentFormProps)
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">CVV</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">CVV</label>
             <input
               type="text"
               placeholder="123"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 bg-white"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white bg-white dark:bg-gray-700"
               value={formData.cvv}
               onChange={(e) => setFormData({ ...formData, cvv: e.target.value })}
               required
@@ -111,16 +111,16 @@ export default function PaymentForm({ totalAmount, onSubmit }: PaymentFormProps)
 
       {/* Billing Address */}
       <div className="space-y-4">
-        <h3 className="font-semibold text-gray-900">Billing Address</h3>
+        <h3 className="font-semibold text-gray-900 dark:text-white">Billing Address</h3>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Street Address
           </label>
           <input
             type="text"
             placeholder="123 Main St"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 bg-white"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white bg-white dark:bg-gray-700"
             value={formData.billingAddress.street}
             onChange={(e) =>
               setFormData({
@@ -134,11 +134,11 @@ export default function PaymentForm({ totalAmount, onSubmit }: PaymentFormProps)
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">City</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">City</label>
             <input
               type="text"
               placeholder="New York"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 bg-white"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white bg-white dark:bg-gray-700"
               value={formData.billingAddress.city}
               onChange={(e) =>
                 setFormData({
@@ -151,11 +151,11 @@ export default function PaymentForm({ totalAmount, onSubmit }: PaymentFormProps)
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">State</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">State</label>
             <input
               type="text"
               placeholder="NY"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 bg-white"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white bg-white dark:bg-gray-700"
               value={formData.billingAddress.state}
               onChange={(e) =>
                 setFormData({
@@ -169,13 +169,13 @@ export default function PaymentForm({ totalAmount, onSubmit }: PaymentFormProps)
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             ZIP Code
           </label>
           <input
             type="text"
             placeholder="10001"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 bg-white"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 dark:text-white bg-white dark:bg-gray-700"
             value={formData.billingAddress.zipCode}
             onChange={(e) =>
               setFormData({
@@ -190,12 +190,12 @@ export default function PaymentForm({ totalAmount, onSubmit }: PaymentFormProps)
 
       <button
         type="submit"
-        className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition font-semibold"
+        className="w-full bg-blue-600 dark:bg-blue-700 text-white py-3 rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 transition font-semibold"
       >
         Complete Payment
       </button>
 
-      <div className="text-xs text-gray-500 text-center">
+      <div className="text-xs text-gray-500 dark:text-gray-400 text-center">
         Your payment information is encrypted and secure
       </div>
     </form>
