@@ -57,14 +57,14 @@ export default function SalesReportsPage() {
   const maxRevenue = Math.max(...monthlyData.map(d => d.revenue));
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12">
+    <div className="min-h-screen py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
             Sales Reports
           </h1>
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-gray-600">
             Comprehensive sales analytics and performance metrics
           </p>
         </div>
@@ -107,16 +107,16 @@ export default function SalesReportsPage() {
         {/* Charts Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
           {/* Monthly Revenue Chart */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Monthly Revenue</h2>
+          <div className="bg-white rounded-xl shadow-md p-6">
+            <h2 className="text-xl font-bold text-gray-900 mb-6">Monthly Revenue</h2>
             <div className="space-y-4">
               {monthlyData.map((data, index) => (
                 <div key={index}>
                   <div className="flex justify-between mb-2">
-                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{data.month}</span>
-                    <span className="text-sm font-bold text-gray-900 dark:text-white">${data.revenue.toLocaleString()}</span>
+                    <span className="text-sm font-medium text-gray-700">{data.month}</span>
+                    <span className="text-sm font-bold text-gray-900">${data.revenue.toLocaleString()}</span>
                   </div>
-                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
+                  <div className="w-full bg-gray-200 rounded-full h-3">
                     <div
                       className="bg-gradient-to-r from-green-500 to-blue-500 h-3 rounded-full transition-all duration-500"
                       style={{ width: `${(data.revenue / maxRevenue) * 100}%` }}
@@ -128,21 +128,21 @@ export default function SalesReportsPage() {
           </div>
 
           {/* Top Selling Products */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Top Selling Products</h2>
+          <div className="bg-white rounded-xl shadow-md p-6">
+            <h2 className="text-xl font-bold text-gray-900 mb-6">Top Selling Products</h2>
             <div className="space-y-4">
               {stats.topSellingProducts.map((product, index) => (
-                <div key={index} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                   <div className="flex items-center space-x-4">
-                    <div className="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 w-10 h-10 rounded-full flex items-center justify-center font-bold">
+                    <div className="bg-blue-100 text-blue-600 w-10 h-10 rounded-full flex items-center justify-center font-bold">
                       {index + 1}
                     </div>
                     <div>
-                      <p className="font-medium text-gray-900 dark:text-white">{product.name}</p>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">{product.quantity} units sold</p>
+                      <p className="font-medium text-gray-900">{product.name}</p>
+                      <p className="text-sm text-gray-600">{product.quantity} units sold</p>
                     </div>
                   </div>
-                  <p className="font-bold text-green-600 dark:text-green-400">${product.revenue.toFixed(2)}</p>
+                  <p className="font-bold text-green-600">${product.revenue.toFixed(2)}</p>
                 </div>
               ))}
             </div>
@@ -150,8 +150,8 @@ export default function SalesReportsPage() {
         </div>
 
         {/* Order Status Breakdown */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Order Status Breakdown</h2>
+        <div className="bg-white rounded-xl shadow-md p-6">
+          <h2 className="text-xl font-bold text-gray-900 mb-6">Order Status Breakdown</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
               { status: 'pending', count: sampleOrders.filter(o => o.status === 'pending').length, color: 'yellow', icon: '⏳' },
@@ -159,37 +159,37 @@ export default function SalesReportsPage() {
               { status: 'completed', count: sampleOrders.filter(o => o.status === 'completed').length, color: 'green', icon: '✅' },
               { status: 'cancelled', count: sampleOrders.filter(o => o.status === 'cancelled').length, color: 'red', icon: '❌' },
             ].map((item, index) => (
-              <div key={index} className={`bg-${item.color}-50 dark:bg-${item.color}-900/20 rounded-lg p-6 text-center`}>
+              <div key={index} className={`bg-${item.color}-50 rounded-lg p-6 text-center`}>
                 <div className="text-4xl mb-2">{item.icon}</div>
-                <p className="text-2xl font-bold text-gray-900 dark:text-white mb-1">{item.count}</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400 capitalize">{item.status}</p>
+                <p className="text-2xl font-bold text-gray-900 mb-1">{item.count}</p>
+                <p className="text-sm text-gray-600 capitalize">{item.status}</p>
               </div>
             ))}
           </div>
         </div>
 
         {/* Category Performance */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mt-8">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Category Performance</h2>
+        <div className="bg-white rounded-xl shadow-md p-6 mt-8">
+          <h2 className="text-xl font-bold text-gray-900 mb-6">Category Performance</h2>
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+            <table className="min-w-full divide-y divide-gray-200">
               <thead>
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Category
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Products
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Total Stock
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Avg Price
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+              <tbody className="divide-y divide-gray-200">
                 {Object.entries(
                   sampleProducts.reduce((acc, product) => {
                     if (!acc[product.category]) {
@@ -201,19 +201,19 @@ export default function SalesReportsPage() {
                     return acc;
                   }, {} as Record<string, { count: number; totalStock: number; totalPrice: number }>)
                 ).map(([category, data]) => (
-                  <tr key={category} className="hover:bg-gray-50 dark:hover:bg-gray-700">
+                  <tr key={category} className="hover:bg-gray-50">
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">
+                      <span className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
                         {category}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white font-medium">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">
                       {data.count} products
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                       {data.totalStock} units
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900 dark:text-white">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900">
                       ${(data.totalPrice / data.count).toFixed(2)}
                     </td>
                   </tr>

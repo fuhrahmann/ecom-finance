@@ -57,7 +57,20 @@ export default function ProductDetailPage({
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen w-full bg-white relative">
+      {/* Pink Glow Background */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `
+            radial-gradient(125% 125% at 50% 90%, #ffffff 40%, #ec4899 100%)
+          `,
+          backgroundSize: "100% 100%",
+        }}
+      />
+      {/* Content with relative z-index to appear above background */}
+      <div className="relative z-10">
+        <div className="min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12">
         {/* Breadcrumb */}
         <nav className="mb-6 sm:mb-8 flex items-center gap-2 text-sm flex-wrap">
@@ -148,13 +161,13 @@ export default function ProductDetailPage({
                 {product.description}
               </p>
 
-              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl p-6 mb-6 border border-blue-100 dark:border-blue-800">
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 mb-6 border border-blue-100">
                 <div className="flex items-baseline gap-2 mb-2">
                   <span className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
                     {formatIDR(product.price)}
                   </span>
                   {product.discount && (
-                    <span className="text-gray-500 dark:text-gray-400 line-through text-xl">
+                    <span className="text-gray-500 line-through text-xl">
                       {formatIDR(product.price / (1 - product.discount / 100))}
                     </span>
                   )}
@@ -164,7 +177,7 @@ export default function ProductDetailPage({
                     <span className="bg-green-500 text-white px-2 py-1 rounded-md font-semibold">
                       Save {product.discount}%
                     </span>
-                    <span className="text-gray-600 dark:text-gray-400">Limited time offer</span>
+                    <span className="text-gray-600">Limited time offer</span>
                   </div>
                 )}
               </div>
@@ -208,8 +221,8 @@ export default function ProductDetailPage({
                       +
                     </button>
                   </div>
-                  <span className="text-sm text-gray-500 dark:text-gray-400">
-                    Total: <span className="font-bold text-gray-900 dark:text-white">{formatIDR(product.price * quantity)}</span>
+                  <span className="text-sm text-gray-500">
+                    Total: <span className="font-bold text-gray-900">{formatIDR(product.price * quantity)}</span>
                   </span>
                 </div>
               </div>
@@ -365,6 +378,8 @@ export default function ProductDetailPage({
             </div>
           </div>
         )}
+      </div>
+        </div>
       </div>
     </div>
   );

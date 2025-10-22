@@ -121,14 +121,14 @@ export default function AdminDashboard() {
     <div>
       {/* Page Header */}
       <div className="mb-6">
-        <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">Dashboard</h1>
-        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">Welcome to your e-commerce management center</p>
+        <h1 className="text-2xl font-semibold text-gray-900">Dashboard</h1>
+        <p className="text-sm text-gray-600 mt-1">Welcome to your e-commerce management center</p>
       </div>
 
       {/* Info Boxes - AdminLTE Style */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         {/* Total Orders */}
-        <Link href="/admin/orders" className="bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition-shadow overflow-hidden">
+        <Link href="/admin/orders" className="bg-white rounded-lg shadow hover:shadow-md transition-shadow overflow-hidden">
           <div className="p-4 flex items-center">
             <div className="flex-shrink-0 bg-blue-500 rounded p-3">
               <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -136,17 +136,17 @@ export default function AdminDashboard() {
               </svg>
             </div>
             <div className="ml-4 flex-1">
-              <div className="text-2xl font-bold text-gray-900 dark:text-white">{stats.totalOrders}</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Total Orders</div>
+              <div className="text-2xl font-bold text-gray-900">{stats.totalOrders}</div>
+              <div className="text-sm text-gray-600">Total Orders</div>
             </div>
           </div>
-          <div className="bg-blue-50 dark:bg-blue-900/20 px-4 py-2 text-xs text-blue-700 dark:text-blue-300">
+          <div className="bg-blue-50 px-4 py-2 text-xs text-blue-700">
             View Details →
           </div>
         </Link>
 
         {/* Total Revenue */}
-        <Link href="/admin/sales" className="bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition-shadow overflow-hidden">
+        <Link href="/admin/sales" className="bg-white rounded-lg shadow hover:shadow-md transition-shadow overflow-hidden">
           <div className="p-4 flex items-center">
             <div className="flex-shrink-0 bg-green-500 rounded p-3">
               <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -154,17 +154,17 @@ export default function AdminDashboard() {
               </svg>
             </div>
             <div className="ml-4 flex-1">
-              <div className="text-2xl font-bold text-gray-900 dark:text-white">${stats.totalRevenue.toFixed(2)}</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Total Revenue</div>
+              <div className="text-2xl font-bold text-gray-900">${stats.totalRevenue.toFixed(2)}</div>
+              <div className="text-sm text-gray-600">Total Revenue</div>
             </div>
           </div>
-          <div className="bg-green-50 dark:bg-green-900/20 px-4 py-2 text-xs text-green-700 dark:text-green-300">
+          <div className="bg-green-50 px-4 py-2 text-xs text-green-700">
             View Details →
           </div>
         </Link>
 
         {/* Total Products */}
-        <Link href="/admin/products" className="bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition-shadow overflow-hidden">
+        <Link href="/admin/products" className="bg-white rounded-lg shadow hover:shadow-md transition-shadow overflow-hidden">
           <div className="p-4 flex items-center">
             <div className="flex-shrink-0 bg-yellow-500 rounded p-3">
               <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -172,17 +172,17 @@ export default function AdminDashboard() {
               </svg>
             </div>
             <div className="ml-4 flex-1">
-              <div className="text-2xl font-bold text-gray-900 dark:text-white">{stats.totalProducts}</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Total Products</div>
+              <div className="text-2xl font-bold text-gray-900">{stats.totalProducts}</div>
+              <div className="text-sm text-gray-600">Total Products</div>
             </div>
           </div>
-          <div className="bg-yellow-50 dark:bg-yellow-900/20 px-4 py-2 text-xs text-yellow-700 dark:text-yellow-300">
+          <div className="bg-yellow-50 px-4 py-2 text-xs text-yellow-700">
             View Details →
           </div>
         </Link>
 
         {/* Low Stock Alert */}
-        <Link href="/admin/products" className="bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition-shadow overflow-hidden">
+        <Link href="/admin/products" className="bg-white rounded-lg shadow hover:shadow-md transition-shadow overflow-hidden">
           <div className="p-4 flex items-center">
             <div className="flex-shrink-0 bg-red-500 rounded p-3">
               <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -190,68 +190,68 @@ export default function AdminDashboard() {
               </svg>
             </div>
             <div className="ml-4 flex-1">
-              <div className="text-2xl font-bold text-gray-900 dark:text-white">{stats.lowStockProducts}</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Low Stock Items</div>
+              <div className="text-2xl font-bold text-gray-900">{stats.lowStockProducts}</div>
+              <div className="text-sm text-gray-600">Low Stock Items</div>
             </div>
           </div>
-          <div className="bg-red-50 dark:bg-red-900/20 px-4 py-2 text-xs text-red-700 dark:text-red-300">
+          <div className="bg-red-50 px-4 py-2 text-xs text-red-700">
             View Details →
           </div>
         </Link>
       </div>
 
       {/* Recent Orders Table */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow mb-6">
-        <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Recent Orders</h2>
-          <Link href="/admin/orders" className="text-sm text-blue-600 dark:text-blue-400 hover:underline">
+      <div className="bg-white rounded-lg shadow mb-6">
+        <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+          <h2 className="text-lg font-semibold text-gray-900">Recent Orders</h2>
+          <Link href="/admin/orders" className="text-sm text-blue-600 hover:underline">
             View All
           </Link>
         </div>
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-            <thead className="bg-gray-50 dark:bg-gray-900">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-50">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Order ID
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Customer
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Amount
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Status
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Date
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+            <tbody className="bg-white divide-y divide-gray-200">
               {sampleOrders.slice(0, 5).map((order) => (
-                <tr key={order.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+                <tr key={order.id} className="hover:bg-gray-50">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                     {order.id}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                     {order.userId}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white font-semibold">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">
                     ${order.totalAmount.toFixed(2)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded ${
-                      order.status === 'completed' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' :
-                      order.status === 'processing' ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400' :
-                      order.status === 'pending' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400' :
-                      'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'
+                      order.status === 'completed' ? 'bg-green-100 text-green-800' :
+                      order.status === 'processing' ? 'bg-blue-100 text-blue-800' :
+                      order.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                      'bg-red-100 text-red-800'
                     }`}>
                       {order.status}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                     {new Date(order.createdAt).toLocaleDateString()}
                   </td>
                 </tr>

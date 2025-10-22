@@ -9,14 +9,6 @@
   --accent: #10b981;
 }
 
-.dark {
-  --background: #000000;
-  --foreground: #f0fdf4;
-  --primary: #34d399;
-  --primary-dark: #10b981;
-  --accent: #6ee7b7;
-}
-
 @theme inline {
   --color-background: var(--background);
   --font-sans: var(--font-geist-sans);
@@ -29,21 +21,15 @@ body {
   min-height: 100vh;
 }
 
-/* Light mode background with teal glow */
+/* Background with pink glow */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
   z-index: -1;
   background: white;
-  background-image: radial-gradient(125% 125% at 50% 90%, #ffffff 40%, #14b8a6 100%);
+  background-image: radial-gradient(125% 125% at 50% 90%, #ffffff 40%, #ec4899 100%);
   background-size: 100% 100%;
-  background-attachment: fixed;
-}
-
-/* Dark mode background - Emerald Void */
-.dark body::before {
-  background: radial-gradient(125% 125% at 50% 90%, #000000 40%, #072607 100%);
   background-attachment: fixed;
 }
 
@@ -56,23 +42,11 @@ body::before {
   background: #f1f1f1;
 }
 
-.dark ::-webkit-scrollbar-track {
-  background: #1f2937;
-}
-
 ::-webkit-scrollbar-thumb {
   background: #888;
   border-radius: 5px;
 }
 
-.dark ::-webkit-scrollbar-thumb {
-  background: #4b5563;
-}
-
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
-}
-
-.dark ::-webkit-scrollbar-thumb:hover {
-  background: #6b7280;
 }

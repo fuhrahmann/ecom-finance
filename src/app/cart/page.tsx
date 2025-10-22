@@ -14,7 +14,20 @@ export default function CartPage() {
 
   if (cart.length === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      <div className="min-h-screen w-full bg-white relative">
+        {/* Pink Glow Background */}
+        <div
+          className="absolute inset-0 z-0"
+          style={{
+            backgroundImage: `
+              radial-gradient(125% 125% at 50% 90%, #ffffff 40%, #ec4899 100%)
+            `,
+            backgroundSize: "100% 100%",
+          }}
+        />
+        {/* Content with relative z-index to appear above background */}
+        <div className="relative z-10">
+          <div className="min-h-screen">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-8">Shopping Cart</h1>
           <div className="bg-white rounded-2xl shadow-xl p-12 sm:p-16 text-center border border-gray-100">
@@ -85,16 +98,31 @@ export default function CartPage() {
             </div>
           </div>
         </div>
+          </div>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen w-full bg-white relative">
+      {/* Pink Glow Background */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `
+            radial-gradient(125% 125% at 50% 90%, #ffffff 40%, #ec4899 100%)
+          `,
+          backgroundSize: "100% 100%",
+        }}
+      />
+      {/* Content with relative z-index to appear above background */}
+      <div className="relative z-10">
+        <div className="min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         <div className="mb-8">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-2">Shopping Cart</h1>
-          <p className="text-gray-600 dark:text-gray-400">{cart.length} {cart.length === 1 ? 'item' : 'items'} in your cart</p>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-2">Shopping Cart</h1>
+          <p className="text-gray-600">{cart.length} {cart.length === 1 ? 'item' : 'items'} in your cart</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
@@ -141,25 +169,25 @@ export default function CartPage() {
                       </p>
 
                       <div className="flex items-center gap-3">
-                        <span className="text-sm text-gray-600 dark:text-gray-400 font-medium">Qty:</span>
-                        <div className="flex items-center border-2 border-gray-200 dark:border-gray-600 rounded-xl overflow-hidden bg-white dark:bg-gray-700">
+                        <span className="text-sm text-gray-600 font-medium">Qty:</span>
+                        <div className="flex items-center border-2 border-gray-200 rounded-xl overflow-hidden bg-white">
                           <button
                             onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                            className="w-9 h-9 bg-gray-50 dark:bg-gray-600 hover:bg-gray-100 dark:hover:bg-gray-500 transition-colors flex items-center justify-center font-bold text-gray-700 dark:text-white">
+                            className="w-9 h-9 bg-gray-50 hover:bg-gray-100 transition-colors flex items-center justify-center font-bold text-gray-700">
                             −
                           </button>
-                          <span className="w-12 text-center font-bold text-gray-900 dark:text-white">
+                          <span className="w-12 text-center font-bold text-gray-900">
                             {item.quantity}
                           </span>
                           <button
                             onClick={() => updateQuantity(item.id, item.quantity + 1)}
                             disabled={item.quantity >= item.stock}
-                            className="w-9 h-9 bg-gray-50 dark:bg-gray-600 hover:bg-gray-100 dark:hover:bg-gray-500 transition-colors flex items-center justify-center font-bold text-gray-700 dark:text-white disabled:opacity-50">
+                            className="w-9 h-9 bg-gray-50 hover:bg-gray-100 transition-colors flex items-center justify-center font-bold text-gray-700 disabled:opacity-50">
                             +
                           </button>
                         </div>
-                        <span className="text-sm text-gray-600 dark:text-gray-400 hidden sm:inline">
-                          Total: <span className="font-bold text-gray-900 dark:text-white">{formatIDR(item.price * item.quantity)}</span>
+                        <span className="text-sm text-gray-600 hidden sm:inline">
+                          Total: <span className="font-bold text-gray-900">{formatIDR(item.price * item.quantity)}</span>
                         </span>
                       </div>
                     </div>
@@ -183,21 +211,21 @@ export default function CartPage() {
           {/* Cart Summary - Sticky on desktop */}
           <div className="lg:col-span-1">
             <div className="sticky top-24">
-              <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 border border-gray-100 dark:border-gray-700">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Order Summary</h2>
+              <div className="bg-white rounded-2xl shadow-xl p-6 border border-gray-100">
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Order Summary</h2>
 
                 <div className="space-y-4 mb-6">
-                  <div className="flex justify-between text-gray-600 dark:text-gray-400">
+                  <div className="flex justify-between text-gray-600">
                     <span>Subtotal</span>
-                    <span className="font-semibold text-gray-900 dark:text-white">{formatIDR(cartTotal)}</span>
+                    <span className="font-semibold text-gray-900">{formatIDR(cartTotal)}</span>
                   </div>
-                  <div className="flex justify-between text-gray-600 dark:text-gray-400">
+                  <div className="flex justify-between text-gray-600">
                     <span>Shipping</span>
-                    <span className="font-semibold text-green-600 dark:text-green-400">FREE</span>
+                    <span className="font-semibold text-green-600">FREE</span>
                   </div>
-                  <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
+                  <div className="border-t border-gray-200 pt-4">
                     <div className="flex justify-between text-xl font-bold">
-                      <span className="text-gray-900 dark:text-white">Total</span>
+                      <span className="text-gray-900">Total</span>
                       <span className="bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">{formatIDR(cartTotal)}</span>
                     </div>
                   </div>
@@ -212,13 +240,15 @@ export default function CartPage() {
 
                 <button
                   onClick={clearCart}
-                  className="w-full text-center text-sm text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 font-medium py-2"
+                  className="w-full text-center text-sm text-red-600 hover:text-red-700 font-medium py-2"
                 >
                   Clear Cart
                 </button>
               </div>
             </div>
           </div>
+        </div>
+      </div>
         </div>
       </div>
     </div>

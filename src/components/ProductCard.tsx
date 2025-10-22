@@ -21,8 +21,8 @@ export default function ProductCard({ product }: ProductCardProps) {
     setTimeout(() => setIsAdded(false), 2000); // Reset after 2 seconds
   };
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-xl transition-shadow overflow-hidden border border-gray-200 dark:border-gray-700">
-      <Link href={`/products/${product.id}`} className="block relative h-48 bg-gray-100 dark:bg-gray-700 overflow-hidden group">
+    <div className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow overflow-hidden border border-gray-200">
+      <Link href={`/products/${product.id}`} className="block relative h-48 bg-gray-100 overflow-hidden group">
         <Image
           src={product.image}
           alt={product.name}
@@ -54,34 +54,34 @@ export default function ProductCard({ product }: ProductCardProps) {
 
       <div className="p-4">
         <div className="mb-2">
-          <span className="text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase bg-blue-50 dark:bg-blue-900/30 px-2 py-1 rounded">
+          <span className="text-xs font-semibold text-blue-600 uppercase bg-blue-50 px-2 py-1 rounded">
             {product.category}
           </span>
         </div>
 
-        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 line-clamp-1">
+        <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-1">
           {product.name}
         </h3>
 
-        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
+        <p className="text-sm text-gray-600 mb-4 line-clamp-2">
           {product.description}
         </p>
 
         <div className="flex items-center justify-between mb-4">
           <div>
-            <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+            <span className="text-2xl font-bold text-blue-600">
               {formatIDR(product.price)}
             </span>
             {product.discount && (
-              <div className="text-xs text-gray-500 dark:text-gray-500 line-through">
+              <div className="text-xs text-gray-500 line-through">
                 {formatIDR(product.price / (1 - product.discount / 100))}
               </div>
             )}
           </div>
           {product.rating && (
             <div className="flex items-center gap-1">
-              <span className="text-yellow-500 dark:text-yellow-400">★</span>
-              <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">{product.rating}</span>
+              <span className="text-yellow-500">★</span>
+              <span className="text-sm font-semibold text-gray-700">{product.rating}</span>
             </div>
           )}
         </div>
@@ -94,7 +94,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               ? 'bg-green-600 text-white'
               : product.stock === 0
               ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-              : 'bg-teal-600 text-white hover:bg-teal-700 dark:bg-emerald-600 dark:hover:bg-emerald-700'
+              : 'bg-teal-600 text-white hover:bg-teal-700'
           }`}
         >
           {isAdded ? (

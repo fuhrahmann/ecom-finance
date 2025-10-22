@@ -17,7 +17,14 @@
       "Bash(timeout /t 5 /nobreak)",
       "mcp__ide__getDiagnostics",
       "Bash(dir \"C:\\WILLY\\ecom-finance\" /B)",
-      "Bash(dir:*)"
+      "Bash(dir:*)",
+      "Bash(del \"C:\\WILLY\\ecom-finance\\src\\contexts\\ThemeContext.tsx\")",
+      "Bash(rm:*)",
+      "Bash(for file in src/app/page.tsx src/app/login/page.tsx src/app/products/page.tsx \"src/app/products/[id]/page.tsx\" src/app/cart/page.tsx src/app/checkout/page.tsx src/app/admin/page.tsx src/app/admin/layout.tsx src/app/admin/products/page.tsx src/app/admin/orders/page.tsx src/app/admin/customers/page.tsx src/app/admin/sales/page.tsx src/components/ProductCard.tsx src/components/PaymentForm.tsx src/components/AnalyticsDashboard.tsx)",
+      "Bash(do echo \"Checking $file:\")",
+      "Bash(done)",
+      "Bash(do echo -e \"\\n$file\")",
+      "Bash(awk:*)"
     ],
     "deny": [],
     "ask": []
