@@ -56,16 +56,31 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     // Check for stored session on mount
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
+    const checkAuth = () => {
       try {
-        setUser(JSON.parse(storedUser));
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+          const parsedUser = JSON.parse(storedUser);
+          setUser(parsedUser);
+
+          // Also set auth cookie for middleware
+          const expiresAt = new Date();
+          expiresAt.setDate(expiresAt.getDate() + 7); // 7 days
+          document.cookie = `auth_session=${JSON.stringify({
+            user: parsedUser,
+            expiresAt: expiresAt.toISOString()
+          })}; path=/; max-age=${60 * 60 * 24 * 7}`;
+        }
       } catch (error) {
         console.error('Error parsing stored user:', error);
         localStorage.removeItem('user');
+        document.cookie = 'auth_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+      } finally {
+        setLoading(false);
       }
-    }
-    setLoading(false);
+    };
+
+    checkAuth();
   }, []);
 
   const login = async (email: string, password: string) => {
@@ -80,6 +95,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const { password: _, ...userWithoutPassword } = foundUser;
       setUser(userWithoutPassword);
       localStorage.setItem('user', JSON.stringify(userWithoutPassword));
+
+      // Set auth cookie for middleware
+      const expiresAt = new Date();
+      expiresAt.setDate(expiresAt.getDate() + 7); // 7 days
+      document.cookie = `auth_session=${JSON.stringify({
+        user: userWithoutPassword,
+        expiresAt: expiresAt.toISOString()
+      })}; path=/; max-age=${60 * 60 * 24 * 7}`;
+
       return { success: true };
     }
 
@@ -89,6 +113,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const logout = async () => {
     setUser(null);
     localStorage.removeItem('user');
+    // Clear auth cookie
+    document.cookie = 'auth_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
   };
 
   const value: AuthContextType = {

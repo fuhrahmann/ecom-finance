@@ -10,7 +10,7 @@ export default function LoginPage() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const { login } = useAuth();
+  const { login, user } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,25 +20,27 @@ export default function LoginPage() {
     const result = await login(email, password);
 
     if (result.success) {
-      // Check if user is admin after successful login
-      // Get the user data from localStorage after login
-      const storedUser = localStorage.getItem('user');
-      if (storedUser) {
-        const user = JSON.parse(storedUser);
-        // Redirect admin to admin dashboard, customers to homepage
-        if (user.role === 'admin') {
-          router.push('/admin');
+      // Small delay to ensure state is updated
+      setTimeout(() => {
+        // Get the updated user from localStorage
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+          const userData = JSON.parse(storedUser);
+          // Redirect admin to admin dashboard, customers to homepage
+          if (userData.role === 'admin') {
+            router.push('/admin');
+          } else {
+            router.push('/');
+          }
         } else {
           router.push('/');
         }
-      } else {
-        router.push('/');
-      }
+        setLoading(false);
+      }, 100);
     } else {
       setError(result.error || 'Login failed');
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (

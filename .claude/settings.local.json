@@ -24,7 +24,8 @@
       "Bash(do echo \"Checking $file:\")",
       "Bash(done)",
       "Bash(do echo -e \"\\n$file\")",
-      "Bash(awk:*)"
+      "Bash(awk:*)",
+      "Bash(taskkill:*)"
     ],
     "deny": [],
     "ask": []

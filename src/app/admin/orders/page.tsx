@@ -116,7 +116,7 @@ export default function OrdersManagementPage() {
                 className={`px-4 py-2 rounded-lg font-medium transition ${
                   filter === status
                     ? 'bg-blue-600 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
                 {status.charAt(0).toUpperCase() + status.slice(1)}

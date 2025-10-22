@@ -4,21 +4,9 @@ import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
 import { sampleProducts } from "@/data/sampleData";
 import { motion } from "framer-motion";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { useAuth } from "@/contexts/AuthContext";
 
 export default function Home() {
   const featuredProducts = sampleProducts.slice(0, 3);
-  const router = useRouter();
-  const { isAdmin, loading } = useAuth();
-
-  // Redirect admin users to admin dashboard
-  useEffect(() => {
-    if (!loading && isAdmin) {
-      router.push('/admin');
-    }
-  }, [isAdmin, loading, router]);
 
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
