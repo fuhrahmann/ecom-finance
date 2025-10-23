@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCart } from '@/contexts/CartContext';
+import { useTheme } from '@/contexts/ThemeContext';
 import { useRouter } from 'next/navigation';
 
 export default function Navbar() {
@@ -11,6 +12,7 @@ export default function Navbar() {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const { user, logout, loading, isAdmin } = useAuth();
   const { cartCount } = useCart();
+  const { theme, toggleTheme } = useTheme();
   const router = useRouter();
 
   const handleLogout = async () => {
@@ -20,7 +22,11 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200/50 transition-colors duration-300">
+    <nav className={`sticky top-0 z-50 backdrop-blur-md border-b transition-colors duration-300 ${
+      theme === 'light'
+        ? 'bg-white/90 border-gray-200/50'
+        : 'bg-black/40 border-white/10'
+    }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
@@ -36,25 +42,56 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-2">
-            <Link href="/" className="text-gray-900 hover:text-teal-600 transition-colors px-3 py-2 text-sm font-medium">
+            {/* Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              className={`flex items-center justify-center p-2 rounded-lg transition-colors ${
+                theme === 'light'
+                  ? 'text-gray-700 hover:bg-gray-100'
+                  : 'text-gray-300 hover:bg-white/10'
+              }`}
+              title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+            >
+              {theme === 'light' ? (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+              ) : (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              )}
+            </button>
+
+            <Link href="/" className={`transition-colors px-3 py-2 text-sm font-medium ${
+              theme === 'light' ? 'text-gray-900 hover:text-teal-600' : 'text-gray-200 hover:text-teal-400'
+            }`}>
               Home
             </Link>
-            <Link href="/products" className="text-gray-900 hover:text-teal-600 transition-colors px-3 py-2 text-sm font-medium">
+            <Link href="/products" className={`transition-colors px-3 py-2 text-sm font-medium ${
+              theme === 'light' ? 'text-gray-900 hover:text-teal-600' : 'text-gray-200 hover:text-teal-400'
+            }`}>
               Products
             </Link>
 
             {isAdmin && (
               <>
-                <Link href="/admin" className="text-gray-900 hover:text-teal-600 transition-colors px-3 py-2 text-sm font-medium">
+                <Link href="/admin" className={`transition-colors px-3 py-2 text-sm font-medium ${
+                  theme === 'light' ? 'text-gray-900 hover:text-teal-600' : 'text-gray-200 hover:text-teal-400'
+                }`}>
                   Admin
                 </Link>
-                <Link href="/admin/products" className="text-gray-900 hover:text-teal-600 transition-colors px-3 py-2 text-sm font-medium">
+                <Link href="/admin/products" className={`transition-colors px-3 py-2 text-sm font-medium ${
+                  theme === 'light' ? 'text-gray-900 hover:text-teal-600' : 'text-gray-200 hover:text-teal-400'
+                }`}>
                   Manage Products
                 </Link>
               </>
             )}
 
-            <Link href="/analytics" className="text-gray-900 hover:text-teal-600 transition-colors px-3 py-2 text-sm font-medium">
+            <Link href="/analytics" className={`transition-colors px-3 py-2 text-sm font-medium ${
+              theme === 'light' ? 'text-gray-900 hover:text-teal-600' : 'text-gray-200 hover:text-teal-400'
+            }`}>
               Analytics
             </Link>
             <Link
@@ -74,13 +111,15 @@ export default function Navbar() {
                   <>
                     <button
                       onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                      className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
+                      className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${
+                        theme === 'light' ? 'hover:bg-gray-100' : 'hover:bg-white/10'
+                      }`}
                     >
                       <div className="w-8 h-8 bg-gradient-to-br from-teal-500 to-teal-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
                         {user.name.charAt(0).toUpperCase()}
                       </div>
-                      <span className="text-sm font-medium text-gray-900">{user.name}</span>
-                      <svg className="w-4 h-4 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <span className={`text-sm font-medium ${theme === 'light' ? 'text-gray-900' : 'text-gray-200'}`}>{user.name}</span>
+                      <svg className={`w-4 h-4 ${theme === 'light' ? 'text-gray-900' : 'text-gray-200'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                       </svg>
                     </button>
@@ -121,7 +160,11 @@ export default function Navbar() {
           <div className="lg:hidden flex items-center gap-2">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-black hover:text-teal-600 focus:outline-none p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className={`focus:outline-none p-2 rounded-lg transition-colors ${
+                theme === 'light'
+                  ? 'text-black hover:text-teal-600 hover:bg-gray-100'
+                  : 'text-gray-200 hover:text-teal-400 hover:bg-white/10'
+              }`}
             >
               <svg
                 className="h-6 w-6"
@@ -145,7 +188,11 @@ export default function Navbar() {
 
       {/* Mobile Navigation */}
       {isMenuOpen && (
-        <div className="lg:hidden bg-white/95 backdrop-blur-md border-t border-gray-200 shadow-lg">
+        <div className={`lg:hidden backdrop-blur-md border-t shadow-lg ${
+          theme === 'light'
+            ? 'bg-white/95 border-gray-200'
+            : 'bg-black/90 border-white/10'
+        }`}>
           <div className="px-4 pt-3 pb-4 space-y-2">
             {user ? (
               <div className="px-4 py-3 bg-teal-50 rounded-xl mb-3">
@@ -174,16 +221,45 @@ export default function Navbar() {
               </Link>
             )}
 
+            {/* Theme Toggle Button for Mobile */}
+            <button
+              onClick={toggleTheme}
+              className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-colors font-medium ${
+                theme === 'light'
+                  ? 'text-gray-900 hover:bg-teal-50 hover:text-teal-600'
+                  : 'text-gray-200 hover:bg-white/10 hover:text-teal-400'
+              }`}
+            >
+              <span>Theme: {theme === 'light' ? 'Light' : 'Dark'}</span>
+              {theme === 'light' ? (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+              ) : (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              )}
+            </button>
+
             <Link
               href="/"
-              className="block px-4 py-3 text-gray-900 hover:bg-teal-50 hover:text-teal-600 rounded-xl transition-colors font-medium"
+              className={`block px-4 py-3 rounded-xl transition-colors font-medium ${
+                theme === 'light'
+                  ? 'text-gray-900 hover:bg-teal-50 hover:text-teal-600'
+                  : 'text-gray-200 hover:bg-white/10 hover:text-teal-400'
+              }`}
               onClick={() => setIsMenuOpen(false)}
             >
               Home
             </Link>
             <Link
               href="/products"
-              className="block px-4 py-3 text-gray-900 hover:bg-teal-50 hover:text-teal-600 rounded-xl transition-colors font-medium"
+              className={`block px-4 py-3 rounded-xl transition-colors font-medium ${
+                theme === 'light'
+                  ? 'text-gray-900 hover:bg-teal-50 hover:text-teal-600'
+                  : 'text-gray-200 hover:bg-white/10 hover:text-teal-400'
+              }`}
               onClick={() => setIsMenuOpen(false)}
             >
               Products
@@ -193,14 +269,22 @@ export default function Navbar() {
               <>
                 <Link
                   href="/admin"
-                  className="block px-4 py-3 text-gray-900 hover:bg-teal-50 hover:text-teal-600 rounded-xl transition-colors font-medium"
+                  className={`block px-4 py-3 rounded-xl transition-colors font-medium ${
+                    theme === 'light'
+                      ? 'text-gray-900 hover:bg-teal-50 hover:text-teal-600'
+                      : 'text-gray-200 hover:bg-white/10 hover:text-teal-400'
+                  }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Admin Dashboard
                 </Link>
                 <Link
                   href="/admin/products"
-                  className="block px-4 py-3 text-gray-900 hover:bg-teal-50 hover:text-teal-600 rounded-xl transition-colors font-medium"
+                  className={`block px-4 py-3 rounded-xl transition-colors font-medium ${
+                    theme === 'light'
+                      ? 'text-gray-900 hover:bg-teal-50 hover:text-teal-600'
+                      : 'text-gray-200 hover:bg-white/10 hover:text-teal-400'
+                  }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Manage Products
@@ -209,7 +293,11 @@ export default function Navbar() {
             )}
             <Link
               href="/analytics"
-              className="block px-4 py-3 text-gray-900 hover:bg-teal-50 hover:text-teal-600 rounded-xl transition-colors font-medium"
+              className={`block px-4 py-3 rounded-xl transition-colors font-medium ${
+                theme === 'light'
+                  ? 'text-gray-900 hover:bg-teal-50 hover:text-teal-600'
+                  : 'text-gray-200 hover:bg-white/10 hover:text-teal-400'
+              }`}
               onClick={() => setIsMenuOpen(false)}
             >
               Analytics

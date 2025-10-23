@@ -4,8 +4,10 @@ import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
 import { sampleProducts } from "@/data/sampleData";
 import { motion } from "framer-motion";
+import { useTheme } from "@/contexts/ThemeContext";
 
 export default function Home() {
+  const { theme } = useTheme();
   const featuredProducts = sampleProducts.slice(0, 3);
 
   const fadeInUp = {
@@ -23,22 +25,21 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-white relative">
-      {/* Pink Glow Background */}
+    <div className="min-h-screen w-full relative">
+      {/* Dynamic Background - Pink Glow for Light, Crimson Depth for Dark */}
       <div
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: `
-            radial-gradient(125% 125% at 50% 90%, #ffffff 40%, #ec4899 100%)
-          `,
-          backgroundSize: "100% 100%",
+          background: theme === 'light'
+            ? "radial-gradient(125% 125% at 50% 10%, #fef3f8 40%, #ffc9e3 100%)"
+            : "radial-gradient(125% 125% at 50% 10%, #000000 40%, #2b0707 100%)",
         }}
       />
       {/* Content with relative z-index to appear above background */}
       <div className="relative z-10">
         <main className="min-h-screen">
           {/* Hero Section */}
-          <section className="relative text-black py-24 overflow-hidden">
+          <section className={`relative py-24 overflow-hidden ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <motion.div
@@ -76,10 +77,10 @@ export default function Home() {
               ShopHub
             </span>
           </h1>
-          <p className="text-xl sm:text-2xl md:text-3xl mb-6 text-black font-light">
+          <p className={`text-xl sm:text-2xl md:text-3xl mb-6 font-light ${theme === 'light' ? 'text-gray-700' : 'text-gray-200'}`}>
             Your Premium E-Commerce Destination
           </p>
-          <p className="text-base sm:text-lg md:text-xl mb-10 max-w-3xl mx-auto text-black leading-relaxed">
+          <p className={`text-base sm:text-lg md:text-xl mb-10 max-w-3xl mx-auto leading-relaxed ${theme === 'light' ? 'text-gray-600' : 'text-gray-300'}`}>
             Discover amazing products from top brands at unbeatable prices.
             Shop electronics, fashion, accessories, and more with fast shipping and secure checkout.
           </p>
@@ -92,7 +93,7 @@ export default function Home() {
             </Link>
             <Link
               href="/analytics"
-              className="w-full sm:w-auto bg-transparent text-black px-8 py-4 rounded-xl font-semibold hover:bg-white/10 transition-all duration-200 border-2 border-black backdrop-blur-sm"
+              className="w-full sm:w-auto bg-transparent text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/10 transition-all duration-200 border-2 border-white/30 backdrop-blur-sm"
             >
               View Analytics
             </Link>
@@ -110,10 +111,10 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-black mb-4">
+            <h2 className={`text-4xl md:text-5xl font-bold mb-4 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
               Why Shop With Us?
             </h2>
-            <p className="text-lg text-black max-w-2xl mx-auto">
+            <p className={`text-lg max-w-2xl mx-auto ${theme === 'light' ? 'text-gray-600' : 'text-gray-300'}`}>
               Experience the best online shopping with unmatched quality and service
             </p>
           </motion.div>
@@ -149,7 +150,11 @@ export default function Home() {
                 key={index}
                 variants={fadeInUp}
                 whileHover={{ y: -8, scale: 1.02 }}
-                className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100"
+                className={`group backdrop-blur-sm rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 ${
+                  theme === 'light'
+                    ? 'bg-white/60 border border-pink-200'
+                    : 'bg-white/5 border border-white/10'
+                }`}
               >
                 <motion.div
                   className={`w-16 h-16 bg-gradient-to-br ${feature.color} rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}
@@ -158,10 +163,10 @@ export default function Home() {
                 >
                   {feature.icon}
                 </motion.div>
-                <h3 className="text-xl font-bold text-black mb-3">
+                <h3 className={`text-xl font-bold mb-3 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
                   {feature.title}
                 </h3>
-                <p className="text-black leading-relaxed">
+                <p className={`leading-relaxed ${theme === 'light' ? 'text-gray-600' : 'text-gray-300'}`}>
                   {feature.description}
                 </p>
               </motion.div>
@@ -181,14 +186,14 @@ export default function Home() {
             className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-4"
           >
             <div>
-              <h2 className="text-4xl md:text-5xl font-bold text-black mb-2">
+              <h2 className={`text-4xl md:text-5xl font-bold mb-2 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
                 Featured Products
               </h2>
-              <p className="text-black">Discover our best-selling items handpicked just for you</p>
+              <p className={theme === 'light' ? 'text-gray-600' : 'text-gray-300'}>Discover our best-selling items handpicked just for you</p>
             </div>
             <Link
               href="/products"
-              className="group inline-flex items-center gap-2 text-teal-600 hover:text-teal-700 font-semibold text-lg"
+              className="group inline-flex items-center gap-2 text-teal-400 hover:text-teal-300 font-semibold text-lg"
             >
               View All Products
               <motion.span

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
+import { useTheme } from '@/contexts/ThemeContext';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -11,6 +12,7 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { login, user } = useAuth();
+  const { theme } = useTheme();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,15 +46,14 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-white relative">
-      {/* Pink Glow Background */}
+    <div className="min-h-screen w-full relative">
+      {/* Dynamic Background - Pink Glow for Light, Crimson Depth for Dark */}
       <div
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: `
-            radial-gradient(125% 125% at 50% 90%, #ffffff 40%, #ec4899 100%)
-          `,
-          backgroundSize: "100% 100%",
+          background: theme === 'light'
+            ? "radial-gradient(125% 125% at 50% 10%, #fef3f8 40%, #ffc9e3 100%)"
+            : "radial-gradient(125% 125% at 50% 10%, #000000 40%, #2b0707 100%)",
         }}
       />
       {/* Content with relative z-index to appear above background */}
@@ -64,10 +65,14 @@ export default function LoginPage() {
           <h1 className="text-4xl font-bold bg-gradient-to-r from-teal-500 to-blue-500 bg-clip-text text-transparent mb-2">
             ShopHub
           </h1>
-          <p className="text-gray-600">Sign in to your account</p>
+          <p className={theme === 'light' ? 'text-gray-700' : 'text-gray-300'}>Sign in to your account</p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-2xl p-8">
+        <div className={`backdrop-blur-md rounded-2xl shadow-2xl p-8 ${
+          theme === 'light'
+            ? 'bg-white/70 border border-pink-200'
+            : 'bg-white/5 border border-white/10'
+        }`}>
           {error && (
             <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
               <p className="text-red-600 text-sm">{error}</p>
@@ -76,7 +81,7 @@ export default function LoginPage() {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="email" className={`block text-sm font-medium mb-2 ${theme === 'light' ? 'text-gray-700' : 'text-gray-200'}`}>
                 Email Address
               </label>
               <input
@@ -85,13 +90,17 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full px-4 py-3 border border-gray-300 bg-white text-gray-900 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition ${
+                  theme === 'light'
+                    ? 'border-pink-300 bg-white text-gray-900 placeholder-gray-400'
+                    : 'border-white/20 bg-white/10 text-white placeholder-gray-400'
+                }`}
                 placeholder="you@example.com"
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="password" className={`block text-sm font-medium mb-2 ${theme === 'light' ? 'text-gray-700' : 'text-gray-200'}`}>
                 Password
               </label>
               <input
@@ -100,7 +109,11 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full px-4 py-3 border border-gray-300 bg-white text-gray-900 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition ${
+                  theme === 'light'
+                    ? 'border-pink-300 bg-white text-gray-900 placeholder-gray-400'
+                    : 'border-white/20 bg-white/10 text-white placeholder-gray-400'
+                }`}
                 placeholder="••••••••"
               />
             </div>
@@ -114,24 +127,24 @@ export default function LoginPage() {
             </button>
           </form>
 
-          <div className="mt-8 pt-6 border-t border-gray-200">
-            <h3 className="text-sm font-semibold text-gray-700 mb-3">Demo Accounts:</h3>
+          <div className={`mt-8 pt-6 border-t ${theme === 'light' ? 'border-pink-200' : 'border-white/10'}`}>
+            <h3 className={`text-sm font-semibold mb-3 ${theme === 'light' ? 'text-gray-700' : 'text-gray-200'}`}>Demo Accounts:</h3>
             <div className="space-y-3 text-sm">
-              <div className="bg-blue-50 p-3 rounded-lg border border-blue-100">
-                <p className="font-semibold text-blue-900">Admin Account:</p>
-                <p className="text-blue-700">Email: admin@shophub.com</p>
-                <p className="text-blue-700">Password: admin123</p>
+              <div className="bg-blue-500/10 p-3 rounded-lg border border-blue-500/30">
+                <p className={`font-semibold ${theme === 'light' ? 'text-blue-700' : 'text-blue-300'}`}>Admin Account:</p>
+                <p className={theme === 'light' ? 'text-blue-600' : 'text-blue-200'}>Email: admin@shophub.com</p>
+                <p className={theme === 'light' ? 'text-blue-600' : 'text-blue-200'}>Password: admin123</p>
               </div>
-              <div className="bg-green-50 p-3 rounded-lg border border-green-100">
-                <p className="font-semibold text-green-900">Customer Account:</p>
-                <p className="text-green-700">Email: customer1@email.com</p>
-                <p className="text-green-700">Password: customer123</p>
+              <div className="bg-green-500/10 p-3 rounded-lg border border-green-500/30">
+                <p className={`font-semibold ${theme === 'light' ? 'text-green-700' : 'text-green-300'}`}>Customer Account:</p>
+                <p className={theme === 'light' ? 'text-green-600' : 'text-green-200'}>Email: customer1@email.com</p>
+                <p className={theme === 'light' ? 'text-green-600' : 'text-green-200'}>Password: customer123</p>
               </div>
             </div>
           </div>
         </div>
 
-        <p className="text-center text-sm text-gray-600 mt-6">
+        <p className={`text-center text-sm mt-6 ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
           By signing in, you agree to our Terms of Service and Privacy Policy
         </p>
       </div>

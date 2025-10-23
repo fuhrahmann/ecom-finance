@@ -2,6 +2,7 @@
 
 import { AuthProvider } from "@/contexts/AuthContext";
 import { CartProvider } from "@/contexts/CartContext";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { usePathname } from "next/navigation";
@@ -13,13 +14,15 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   const isAdminPage = pathname?.startsWith('/admin');
 
   return (
-    <AuthProvider>
-      <CartProvider>
-        {/* Only show customer navbar and footer if NOT on admin pages */}
-        {!isAdminPage && <Navbar />}
-        {children}
-        {!isAdminPage && <Footer />}
-      </CartProvider>
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <CartProvider>
+          {/* Only show customer navbar and footer if NOT on admin pages */}
+          {!isAdminPage && <Navbar />}
+          {children}
+          {!isAdminPage && <Footer />}
+        </CartProvider>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
