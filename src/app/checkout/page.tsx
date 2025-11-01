@@ -5,11 +5,13 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
+import { useTheme } from '@/contexts/ThemeContext';
 
 export default function CheckoutPage() {
   const [orderPlaced, setOrderPlaced] = useState(false);
   const { user, loading } = useAuth();
   const router = useRouter();
+  const { theme } = useTheme();
 
   useEffect(() => {
     if (!loading && !user) {
@@ -25,10 +27,10 @@ export default function CheckoutPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
+      <div className={`min-h-screen flex items-center justify-center ${theme === 'light' ? 'bg-white' : 'bg-gray-900'}`}>
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading...</p>
+          <p className={theme === 'light' ? 'text-gray-600' : 'text-gray-400'}>Loading...</p>
         </div>
       </div>
     );
@@ -40,7 +42,7 @@ export default function CheckoutPage() {
 
   if (orderPlaced) {
     return (
-      <div className="min-h-screen w-full bg-white relative">
+      <div className={`min-h-screen w-full ${theme === 'light' ? 'bg-white' : 'bg-gray-900'} relative`}>
         {/* Pink Glow Background */}
         <div
           className="absolute inset-0 z-0"
@@ -54,7 +56,7 @@ export default function CheckoutPage() {
         {/* Content with relative z-index to appear above background */}
         <div className="relative z-10">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="bg-white rounded-lg shadow-md p-12 text-center border border-gray-200">
+        <div className={`${theme === 'light' ? 'bg-white border-gray-200' : 'bg-gray-800 border-gray-700'} rounded-lg shadow-md p-12 text-center border`}>
           <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <svg
               className="w-8 h-8 text-green-600"
@@ -70,13 +72,13 @@ export default function CheckoutPage() {
               />
             </svg>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">
+          <h1 className={`text-3xl font-bold ${theme === 'light' ? 'text-gray-900' : 'text-white'} mb-4`}>
             Order Placed Successfully!
           </h1>
-          <p className="text-gray-600 mb-2">
+          <p className={`${theme === 'light' ? 'text-gray-600' : 'text-gray-400'} mb-2`}>
             Thank you for your purchase. Your order has been confirmed.
           </p>
-          <p className="text-sm text-gray-500 mb-6">
+          <p className={`text-sm ${theme === 'light' ? 'text-gray-500' : 'text-gray-400'} mb-6`}>
             You will receive an email confirmation shortly.
           </p>
           <div className="space-y-3">
@@ -88,7 +90,7 @@ export default function CheckoutPage() {
             </Link>
             <Link
               href="/products"
-              className="block bg-gray-200 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-300 transition"
+              className={`block ${theme === 'light' ? 'bg-gray-200 text-gray-700 hover:bg-gray-300' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'} px-6 py-3 rounded-lg transition`}
             >
               Continue Shopping
             </Link>
@@ -101,7 +103,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen w-full bg-white relative">
+    <div className={`min-h-screen w-full ${theme === 'light' ? 'bg-white' : 'bg-gray-900'} relative`}>
       {/* Pink Glow Background */}
       <div
         className="absolute inset-0 z-0"
@@ -115,40 +117,40 @@ export default function CheckoutPage() {
       {/* Content with relative z-index to appear above background */}
       <div className="relative z-10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Checkout</h1>
+      <h1 className={`text-3xl font-bold ${theme === 'light' ? 'text-gray-900' : 'text-white'} mb-8`}>Checkout</h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <PaymentForm totalAmount={999.99} onSubmit={handlePaymentSubmit} />
 
         {/* Order Summary */}
-        <div className="bg-white rounded-lg shadow-md p-6 h-fit border border-gray-200">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">
+        <div className={`${theme === 'light' ? 'bg-white border-gray-200' : 'bg-gray-800 border-gray-700'} rounded-lg shadow-md p-6 h-fit border`}>
+          <h2 className={`text-xl font-bold ${theme === 'light' ? 'text-gray-900' : 'text-white'} mb-4`}>
             Order Summary
           </h2>
           <div className="space-y-4">
-            <div className="border-b border-gray-200 pb-4">
+            <div className={`border-b ${theme === 'light' ? 'border-gray-200' : 'border-gray-700'} pb-4`}>
               <div className="flex justify-between mb-2">
-                <span className="text-gray-600">Sample Product</span>
-                <span className="font-semibold text-gray-900">$999.99</span>
+                <span className={theme === 'light' ? 'text-gray-600' : 'text-gray-400'}>Sample Product</span>
+                <span className={`font-semibold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>$999.99</span>
               </div>
             </div>
             <div className="space-y-2">
-              <div className="flex justify-between text-gray-600">
+              <div className={`flex justify-between ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
                 <span>Subtotal</span>
                 <span>$999.99</span>
               </div>
-              <div className="flex justify-between text-gray-600">
+              <div className={`flex justify-between ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
                 <span>Tax (10%)</span>
                 <span>$100.00</span>
               </div>
-              <div className="flex justify-between text-gray-600">
+              <div className={`flex justify-between ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
                 <span>Shipping</span>
                 <span className="text-green-600">FREE</span>
               </div>
             </div>
-            <div className="border-t border-gray-200 pt-4">
+            <div className={`border-t ${theme === 'light' ? 'border-gray-200' : 'border-gray-700'} pt-4`}>
               <div className="flex justify-between text-xl font-bold">
-                <span className="text-gray-900">Total</span>
+                <span className={theme === 'light' ? 'text-gray-900' : 'text-white'}>Total</span>
                 <span className="text-blue-600">$1,099.99</span>
               </div>
             </div>

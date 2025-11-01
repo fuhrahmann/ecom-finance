@@ -1,15 +1,20 @@
+'use client';
+
 import Link from 'next/link';
 import { sampleOrders, sampleAnalytics } from '@/data/sampleData';
+import { useTheme } from '@/contexts/ThemeContext';
 
 export default function DashboardPage() {
+  const { theme } = useTheme();
+
   return (
-    <div className="min-h-screen w-full bg-white relative">
+    <div className={`min-h-screen w-full ${theme === 'light' ? 'bg-white' : 'bg-gray-900'} relative`}>
       {/* Pink Glow Background */}
       <div
         className="absolute inset-0 z-0"
         style={{
           backgroundImage: `
-            radial-gradient(125% 125% at 50% 90%, #ffffff 40%, #ec4899 100%)
+            radial-gradient(125% 125% at 50% 90%, ${theme === 'light' ? '#ffffff 40%, #ec4899 100%' : '#111827 40%, #831843 100%'})
           `,
           backgroundSize: "100% 100%",
         }}
@@ -17,14 +22,14 @@ export default function DashboardPage() {
       {/* Content with relative z-index to appear above background */}
       <div className="relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <h1 className="text-3xl font-bold text-gray-900 mb-8">Dashboard</h1>
+          <h1 className={`text-3xl font-bold ${theme === 'light' ? 'text-gray-900' : 'text-white'} mb-8`}>Dashboard</h1>
 
       {/* Quick Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div className="bg-white rounded-lg shadow-md p-6">
+        <div className={`${theme === 'light' ? 'bg-white' : 'bg-gray-800'} rounded-lg shadow-md p-6`}>
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm text-gray-600">Total Revenue</h3>
-            <div className="bg-green-100 p-2 rounded-lg">
+            <h3 className={`text-sm ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>Total Revenue</h3>
+            <div className={`${theme === 'light' ? 'bg-green-100' : 'bg-green-900/30'} p-2 rounded-lg`}>
               <svg
                 className="w-5 h-5 text-green-600"
                 fill="none"
@@ -40,15 +45,15 @@ export default function DashboardPage() {
               </svg>
             </div>
           </div>
-          <p className="text-2xl font-bold text-gray-900">
+          <p className={`text-2xl font-bold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
             ${sampleAnalytics.totalRevenue.toLocaleString()}
           </p>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-6">
+        <div className={`${theme === 'light' ? 'bg-white' : 'bg-gray-800'} rounded-lg shadow-md p-6`}>
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm text-gray-600">Total Orders</h3>
-            <div className="bg-blue-100 p-2 rounded-lg">
+            <h3 className={`text-sm ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>Total Orders</h3>
+            <div className={`${theme === 'light' ? 'bg-blue-100' : 'bg-blue-900/30'} p-2 rounded-lg`}>
               <svg
                 className="w-5 h-5 text-blue-600"
                 fill="none"
@@ -64,15 +69,15 @@ export default function DashboardPage() {
               </svg>
             </div>
           </div>
-          <p className="text-2xl font-bold text-gray-900">
+          <p className={`text-2xl font-bold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
             {sampleAnalytics.totalOrders}
           </p>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-6">
+        <div className={`${theme === 'light' ? 'bg-white' : 'bg-gray-800'} rounded-lg shadow-md p-6`}>
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm text-gray-600">Avg Order Value</h3>
-            <div className="bg-purple-100 p-2 rounded-lg">
+            <h3 className={`text-sm ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>Avg Order Value</h3>
+            <div className={`${theme === 'light' ? 'bg-purple-100' : 'bg-purple-900/30'} p-2 rounded-lg`}>
               <svg
                 className="w-5 h-5 text-purple-600"
                 fill="none"
@@ -88,15 +93,15 @@ export default function DashboardPage() {
               </svg>
             </div>
           </div>
-          <p className="text-2xl font-bold text-gray-900">
+          <p className={`text-2xl font-bold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
             ${sampleAnalytics.averageOrderValue.toFixed(2)}
           </p>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-6">
+        <div className={`${theme === 'light' ? 'bg-white' : 'bg-gray-800'} rounded-lg shadow-md p-6`}>
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm text-gray-600">Pending Payments</h3>
-            <div className="bg-orange-100 p-2 rounded-lg">
+            <h3 className={`text-sm ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>Pending Payments</h3>
+            <div className={`${theme === 'light' ? 'bg-orange-100' : 'bg-orange-900/30'} p-2 rounded-lg`}>
               <svg
                 className="w-5 h-5 text-orange-600"
                 fill="none"
@@ -112,7 +117,7 @@ export default function DashboardPage() {
               </svg>
             </div>
           </div>
-          <p className="text-2xl font-bold text-gray-900">
+          <p className={`text-2xl font-bold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
             {sampleAnalytics.pendingPayments}
           </p>
         </div>
@@ -120,8 +125,8 @@ export default function DashboardPage() {
 
       {/* Quick Actions */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">Quick Actions</h2>
+        <div className={`${theme === 'light' ? 'bg-white' : 'bg-gray-800'} rounded-lg shadow-md p-6`}>
+          <h2 className={`text-xl font-bold ${theme === 'light' ? 'text-gray-900' : 'text-white'} mb-4`}>Quick Actions</h2>
           <div className="space-y-3">
             <Link
               href="/products"
@@ -131,31 +136,31 @@ export default function DashboardPage() {
             </Link>
             <Link
               href="/orders"
-              className="block w-full bg-gray-200 text-gray-700 py-3 px-4 rounded-lg hover:bg-gray-300 transition text-center"
+              className={`block w-full ${theme === 'light' ? 'bg-gray-200 text-gray-700 hover:bg-gray-300' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'} py-3 px-4 rounded-lg transition text-center`}
             >
               View All Orders
             </Link>
             <Link
               href="/analytics"
-              className="block w-full bg-gray-200 text-gray-700 py-3 px-4 rounded-lg hover:bg-gray-300 transition text-center"
+              className={`block w-full ${theme === 'light' ? 'bg-gray-200 text-gray-700 hover:bg-gray-300' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'} py-3 px-4 rounded-lg transition text-center`}
             >
               View Full Analytics
             </Link>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">Recent Activity</h2>
+        <div className={`${theme === 'light' ? 'bg-white' : 'bg-gray-800'} rounded-lg shadow-md p-6`}>
+          <h2 className={`text-xl font-bold ${theme === 'light' ? 'text-gray-900' : 'text-white'} mb-4`}>Recent Activity</h2>
           <div className="space-y-3">
             {sampleOrders.slice(0, 3).map((order) => (
               <div
                 key={order.id}
                 className="border-l-4 border-blue-500 pl-3 py-2"
               >
-                <p className="text-sm font-semibold text-gray-900">
+                <p className={`text-sm font-semibold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
                   Order #{order.id}
                 </p>
-                <p className="text-xs text-gray-600">
+                <p className={`text-xs ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
                   ${order.totalAmount.toFixed(2)} - {order.status}
                 </p>
               </div>

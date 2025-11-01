@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useCart } from '@/contexts/CartContext';
 import { useToast } from '@/contexts/ToastContext';
+import { useTheme } from '@/contexts/ThemeContext';
 import { formatIDR } from '@/utils/currency';
 import { useState } from 'react';
 
@@ -20,6 +21,7 @@ interface ProductCardProps {
 export default function ProductCard({ product }: ProductCardProps) {
   const { addToCart } = useCart();
   const toast = useToast();
+  const { theme } = useTheme();
   const [isAdded, setIsAdded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -42,8 +44,14 @@ export default function ProductCard({ product }: ProductCardProps) {
     }, 300);
   };
   return (
-    <div className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow overflow-hidden border border-gray-200">
-      <Link href={`/products/${product.id}`} className="block relative h-48 bg-gray-100 overflow-hidden group">
+    <div className={`rounded-lg shadow-md hover:shadow-xl transition-shadow overflow-hidden ${
+      theme === 'light'
+        ? 'bg-white border border-gray-200'
+        : 'bg-gray-800 border border-gray-700'
+    }`}>
+      <Link href={`/products/${product.id}`} className={`block relative h-48 overflow-hidden group ${
+        theme === 'light' ? 'bg-gray-100' : 'bg-gray-700'
+      }`}>
         <Image
           src={product.image}
           alt={product.name}
@@ -75,26 +83,38 @@ export default function ProductCard({ product }: ProductCardProps) {
 
       <div className="p-4">
         <div className="mb-2">
-          <span className="text-xs font-semibold text-blue-600 uppercase bg-blue-50 px-2 py-1 rounded">
+          <span className={`text-xs font-semibold uppercase px-2 py-1 rounded ${
+            theme === 'light'
+              ? 'text-blue-600 bg-blue-50'
+              : 'text-blue-400 bg-blue-900/30'
+          }`}>
             {product.category}
           </span>
         </div>
 
-        <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-1">
+        <h3 className={`text-lg font-bold mb-2 line-clamp-1 ${
+          theme === 'light' ? 'text-gray-900' : 'text-white'
+        }`}>
           {product.name}
         </h3>
 
-        <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+        <p className={`text-sm mb-4 line-clamp-2 ${
+          theme === 'light' ? 'text-gray-600' : 'text-gray-400'
+        }`}>
           {product.description}
         </p>
 
         <div className="flex items-center justify-between mb-4">
           <div>
-            <span className="text-2xl font-bold text-blue-600">
+            <span className={`text-2xl font-bold ${
+              theme === 'light' ? 'text-blue-600' : 'text-blue-400'
+            }`}>
               {formatIDR(product.price)}
             </span>
             {product.discount && (
-              <div className="text-xs text-gray-500 line-through">
+              <div className={`text-xs line-through ${
+                theme === 'light' ? 'text-gray-500' : 'text-gray-500'
+              }`}>
                 {formatIDR(product.price / (1 - product.discount / 100))}
               </div>
             )}
@@ -102,7 +122,11 @@ export default function ProductCard({ product }: ProductCardProps) {
           {product.rating && (
             <div className="flex items-center gap-1">
               <span className="text-yellow-500">★</span>
-              <span className="text-sm font-semibold text-gray-700">{product.rating}</span>
+              <span className={`text-sm font-semibold ${
+                theme === 'light' ? 'text-gray-700' : 'text-gray-300'
+              }`}>
+                {product.rating}
+              </span>
             </div>
           )}
         </div>

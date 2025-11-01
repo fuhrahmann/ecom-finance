@@ -4,6 +4,7 @@ import { CartItem } from '@/types';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { useTheme } from '@/contexts/ThemeContext';
 
 interface CartSummaryProps {
   items: CartItem[];
@@ -14,6 +15,7 @@ export default function CartSummary({ items, onCheckout }: CartSummaryProps) {
   const { user } = useAuth();
   const router = useRouter();
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+  const { theme } = useTheme();
 
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const tax = subtotal * 0.1; // 10% tax
@@ -37,20 +39,20 @@ export default function CartSummary({ items, onCheckout }: CartSummaryProps) {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6">
-      <h2 className="text-xl font-bold mb-4">Order Summary</h2>
+    <div className={`${theme === 'light' ? 'bg-white' : 'bg-gray-800'} rounded-lg shadow-md p-6`}>
+      <h2 className={`text-xl font-bold mb-4 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>Order Summary</h2>
 
       <div className="space-y-3 mb-6">
-        <div className="flex justify-between text-gray-600">
+        <div className={`flex justify-between ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
           <span>Subtotal</span>
           <span>${subtotal.toFixed(2)}</span>
         </div>
-        <div className="flex justify-between text-gray-600">
+        <div className={`flex justify-between ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
           <span>Tax (10%)</span>
           <span>${tax.toFixed(2)}</span>
         </div>
-        <div className="border-t pt-3 flex justify-between text-lg font-bold">
-          <span>Total</span>
+        <div className={`${theme === 'light' ? 'border-gray-200' : 'border-gray-700'} border-t pt-3 flex justify-between text-lg font-bold`}>
+          <span className={theme === 'light' ? 'text-gray-900' : 'text-white'}>Total</span>
           <span className="text-blue-600">${total.toFixed(2)}</span>
         </div>
       </div>
@@ -83,7 +85,7 @@ export default function CartSummary({ items, onCheckout }: CartSummaryProps) {
         Proceed to Checkout
       </button>
 
-      <div className="mt-4 text-center text-sm text-gray-500">
+      <div className={`mt-4 text-center text-sm ${theme === 'light' ? 'text-gray-500' : 'text-gray-400'}`}>
         Secure checkout powered by FinanceHub
       </div>
     </div>
