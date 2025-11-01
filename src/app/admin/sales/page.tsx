@@ -2,8 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { sampleOrders, sampleProducts } from '@/data/sampleData';
+import { useTheme } from '@/contexts/ThemeContext';
 
 export default function SalesReportsPage() {
+  const { theme } = useTheme();
   const [stats, setStats] = useState({
     totalRevenue: 0,
     totalOrders: 0,
@@ -61,10 +63,10 @@ export default function SalesReportsPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <h1 className={`text-3xl font-bold mb-2 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
             Sales Reports
           </h1>
-          <p className="text-gray-600">
+          <p className={`${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
             Comprehensive sales analytics and performance metrics
           </p>
         </div>
@@ -107,16 +109,16 @@ export default function SalesReportsPage() {
         {/* Charts Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
           {/* Monthly Revenue Chart */}
-          <div className="bg-white rounded-xl shadow-md p-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-6">Monthly Revenue</h2>
+          <div className={`rounded-xl shadow-md p-6 ${theme === 'light' ? 'bg-white' : 'bg-gray-800'}`}>
+            <h2 className={`text-xl font-bold mb-6 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>Monthly Revenue</h2>
             <div className="space-y-4">
               {monthlyData.map((data, index) => (
                 <div key={index}>
                   <div className="flex justify-between mb-2">
-                    <span className="text-sm font-medium text-gray-700">{data.month}</span>
-                    <span className="text-sm font-bold text-gray-900">${data.revenue.toLocaleString()}</span>
+                    <span className={`text-sm font-medium ${theme === 'light' ? 'text-gray-700' : 'text-gray-300'}`}>{data.month}</span>
+                    <span className={`text-sm font-bold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>${data.revenue.toLocaleString()}</span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-3">
+                  <div className={`w-full rounded-full h-3 ${theme === 'light' ? 'bg-gray-200' : 'bg-gray-700'}`}>
                     <div
                       className="bg-gradient-to-r from-green-500 to-blue-500 h-3 rounded-full transition-all duration-500"
                       style={{ width: `${(data.revenue / maxRevenue) * 100}%` }}
@@ -128,18 +130,18 @@ export default function SalesReportsPage() {
           </div>
 
           {/* Top Selling Products */}
-          <div className="bg-white rounded-xl shadow-md p-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-6">Top Selling Products</h2>
+          <div className={`rounded-xl shadow-md p-6 ${theme === 'light' ? 'bg-white' : 'bg-gray-800'}`}>
+            <h2 className={`text-xl font-bold mb-6 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>Top Selling Products</h2>
             <div className="space-y-4">
               {stats.topSellingProducts.map((product, index) => (
-                <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                <div key={index} className={`flex items-center justify-between p-4 rounded-lg ${theme === 'light' ? 'bg-gray-50' : 'bg-gray-700'}`}>
                   <div className="flex items-center space-x-4">
                     <div className="bg-blue-100 text-blue-600 w-10 h-10 rounded-full flex items-center justify-center font-bold">
                       {index + 1}
                     </div>
                     <div>
-                      <p className="font-medium text-gray-900">{product.name}</p>
-                      <p className="text-sm text-gray-600">{product.quantity} units sold</p>
+                      <p className={`font-medium ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>{product.name}</p>
+                      <p className={`text-sm ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>{product.quantity} units sold</p>
                     </div>
                   </div>
                   <p className="font-bold text-green-600">${product.revenue.toFixed(2)}</p>
@@ -150,8 +152,8 @@ export default function SalesReportsPage() {
         </div>
 
         {/* Order Status Breakdown */}
-        <div className="bg-white rounded-xl shadow-md p-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-6">Order Status Breakdown</h2>
+        <div className={`rounded-xl shadow-md p-6 ${theme === 'light' ? 'bg-white' : 'bg-gray-800'}`}>
+          <h2 className={`text-xl font-bold mb-6 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>Order Status Breakdown</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
               { status: 'pending', count: sampleOrders.filter(o => o.status === 'pending').length, color: 'yellow', icon: '⏳' },
@@ -161,8 +163,8 @@ export default function SalesReportsPage() {
             ].map((item, index) => (
               <div key={index} className={`bg-${item.color}-50 rounded-lg p-6 text-center`}>
                 <div className="text-4xl mb-2">{item.icon}</div>
-                <p className="text-2xl font-bold text-gray-900 mb-1">{item.count}</p>
-                <p className="text-sm text-gray-600 capitalize">{item.status}</p>
+                <p className={`text-2xl font-bold mb-1 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>{item.count}</p>
+                <p className={`text-sm capitalize ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>{item.status}</p>
               </div>
             ))}
           </div>
@@ -172,24 +174,24 @@ export default function SalesReportsPage() {
         <div className="bg-white rounded-xl shadow-md p-6 mt-8">
           <h2 className="text-xl font-bold text-gray-900 mb-6">Category Performance</h2>
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
+            <table className={`min-w-full divide-y ${theme === 'light' ? 'divide-gray-200' : 'divide-gray-700'}`}>
               <thead>
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${theme === 'light' ? 'text-gray-500' : 'text-gray-400'}`}>
                     Category
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${theme === 'light' ? 'text-gray-500' : 'text-gray-400'}`}>
                     Products
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${theme === 'light' ? 'text-gray-500' : 'text-gray-400'}`}>
                     Total Stock
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${theme === 'light' ? 'text-gray-500' : 'text-gray-400'}`}>
                     Avg Price
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200">
+              <tbody className={`divide-y ${theme === 'light' ? 'divide-gray-200' : 'divide-gray-700'}`}>
                 {Object.entries(
                   sampleProducts.reduce((acc, product) => {
                     if (!acc[product.category]) {
@@ -201,19 +203,19 @@ export default function SalesReportsPage() {
                     return acc;
                   }, {} as Record<string, { count: number; totalStock: number; totalPrice: number }>)
                 ).map(([category, data]) => (
-                  <tr key={category} className="hover:bg-gray-50">
+                  <tr key={category} className={`${theme === 'light' ? 'hover:bg-gray-50' : 'hover:bg-gray-700'}`}>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
                         {category}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">
+                    <td className={`px-6 py-4 whitespace-nowrap text-sm font-medium ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
                       {data.count} products
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                    <td className={`px-6 py-4 whitespace-nowrap text-sm ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
                       {data.totalStock} units
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900">
+                    <td className={`px-6 py-4 whitespace-nowrap text-sm font-semibold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
                       ${(data.totalPrice / data.count).toFixed(2)}
                     </td>
                   </tr>

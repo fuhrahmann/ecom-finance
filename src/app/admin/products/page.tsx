@@ -2,8 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { Product } from '@/types';
+import { useTheme } from '@/contexts/ThemeContext';
 
 export default function ProductManagementPage() {
+  const { theme } = useTheme();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
@@ -136,7 +138,7 @@ export default function ProductManagementPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-            <p className="text-center text-gray-600 ml-4">Loading products...</p>
+            <p className={`text-center ml-4 ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>Loading products...</p>
           </div>
         </div>
       </div>
@@ -148,8 +150,8 @@ export default function ProductManagementPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Product Management</h1>
-            <p className="text-gray-600 mt-1">Manage your product catalog</p>
+            <h1 className={`text-3xl font-bold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>Product Management</h1>
+            <p className={`mt-1 ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>Manage your product catalog</p>
           </div>
           <button
             onClick={() => setShowForm(!showForm)}
@@ -161,14 +163,14 @@ export default function ProductManagementPage() {
 
         {/* Product Form */}
         {showForm && (
-          <div className="bg-white rounded-lg shadow-md p-6 mb-8 border border-gray-200">
-            <h2 className="text-2xl font-bold mb-6 text-gray-900">
+          <div className={`rounded-lg shadow-md p-6 mb-8 border ${theme === 'light' ? 'bg-white border-gray-200' : 'bg-gray-800 border-gray-700'}`}>
+            <h2 className={`text-2xl font-bold mb-6 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
               {editingProduct ? 'Edit Product' : 'Add New Product'}
             </h2>
             <form onSubmit={editingProduct ? handleUpdate : handleCreate} className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className={`block text-sm font-medium mb-2 ${theme === 'light' ? 'text-gray-700' : 'text-gray-300'}`}>
                     Product Name *
                   </label>
                   <input
@@ -177,12 +179,12 @@ export default function ProductManagementPage() {
                     value={formData.name}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 bg-white"
+                    className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${theme === 'light' ? 'border-gray-300 text-gray-900 bg-white' : 'border-gray-600 text-white bg-gray-700 placeholder-gray-400'}`}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className={`block text-sm font-medium mb-2 ${theme === 'light' ? 'text-gray-700' : 'text-gray-300'}`}>
                     Category *
                   </label>
                   <select
@@ -190,7 +192,7 @@ export default function ProductManagementPage() {
                     value={formData.category}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 bg-white"
+                    className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${theme === 'light' ? 'border-gray-300 text-gray-900 bg-white' : 'border-gray-600 text-white bg-gray-700 placeholder-gray-400'}`}
                   >
                     <option value="">Select Category</option>
                     <option value="Electronics">Electronics</option>
@@ -203,7 +205,7 @@ export default function ProductManagementPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className={`block text-sm font-medium mb-2 ${theme === 'light' ? 'text-gray-700' : 'text-gray-300'}`}>
                     Price ($) *
                   </label>
                   <input
@@ -214,12 +216,12 @@ export default function ProductManagementPage() {
                     required
                     step="0.01"
                     min="0"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 bg-white"
+                    className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${theme === 'light' ? 'border-gray-300 text-gray-900 bg-white' : 'border-gray-600 text-white bg-gray-700 placeholder-gray-400'}`}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className={`block text-sm font-medium mb-2 ${theme === 'light' ? 'text-gray-700' : 'text-gray-300'}`}>
                     Stock *
                   </label>
                   <input
@@ -229,12 +231,12 @@ export default function ProductManagementPage() {
                     onChange={handleInputChange}
                     required
                     min="0"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 bg-white"
+                    className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${theme === 'light' ? 'border-gray-300 text-gray-900 bg-white' : 'border-gray-600 text-white bg-gray-700 placeholder-gray-400'}`}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className={`block text-sm font-medium mb-2 ${theme === 'light' ? 'text-gray-700' : 'text-gray-300'}`}>
                     Image URL
                   </label>
                   <input
@@ -243,12 +245,12 @@ export default function ProductManagementPage() {
                     value={formData.image}
                     onChange={handleInputChange}
                     placeholder="https://example.com/image.jpg"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 bg-white"
+                    className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${theme === 'light' ? 'border-gray-300 text-gray-900 bg-white' : 'border-gray-600 text-white bg-gray-700 placeholder-gray-400'}`}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className={`block text-sm font-medium mb-2 ${theme === 'light' ? 'text-gray-700' : 'text-gray-300'}`}>
                     Rating (0-5)
                   </label>
                   <input
@@ -259,7 +261,7 @@ export default function ProductManagementPage() {
                     step="0.1"
                     min="0"
                     max="5"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 bg-white"
+                    className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${theme === 'light' ? 'border-gray-300 text-gray-900 bg-white' : 'border-gray-600 text-white bg-gray-700 placeholder-gray-400'}`}
                   />
                 </div>
               </div>
@@ -288,7 +290,7 @@ export default function ProductManagementPage() {
                 <button
                   type="button"
                   onClick={resetForm}
-                  className="bg-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-400 transition"
+                  className={`px-6 py-3 rounded-lg transition ${theme === 'light' ? 'bg-gray-300 text-gray-700 hover:bg-gray-400' : 'bg-gray-600 text-gray-300 hover:bg-gray-500'}`}
                 >
                   Cancel
                 </button>
@@ -298,40 +300,40 @@ export default function ProductManagementPage() {
         )}
 
         {/* Products List */}
-        <div className="bg-white rounded-lg shadow-md overflow-hidden">
-          <div className="px-6 py-4 border-b border-gray-200">
-            <h2 className="text-xl font-bold text-gray-900">All Products ({products.length})</h2>
+        <div className={`rounded-lg shadow-md overflow-hidden ${theme === 'light' ? 'bg-white' : 'bg-gray-800'}`}>
+          <div className={`px-6 py-4 border-b ${theme === 'light' ? 'border-gray-200' : 'border-gray-700'}`}>
+            <h2 className={`text-xl font-bold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>All Products ({products.length})</h2>
           </div>
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+            <table className={`min-w-full divide-y ${theme === 'light' ? 'divide-gray-200' : 'divide-gray-700'}`}>
+              <thead className={`${theme === 'light' ? 'bg-gray-50' : 'bg-gray-700'}`}>
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${theme === 'light' ? 'text-gray-500' : 'text-gray-400'}`}>
                     Product
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${theme === 'light' ? 'text-gray-500' : 'text-gray-400'}`}>
                     Category
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${theme === 'light' ? 'text-gray-500' : 'text-gray-400'}`}>
                     Price
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${theme === 'light' ? 'text-gray-500' : 'text-gray-400'}`}>
                     Stock
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${theme === 'light' ? 'text-gray-500' : 'text-gray-400'}`}>
                     Status
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${theme === 'light' ? 'text-gray-500' : 'text-gray-400'}`}>
                     Rating
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${theme === 'light' ? 'text-gray-500' : 'text-gray-400'}`}>
                     Actions
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className={`divide-y ${theme === 'light' ? 'bg-white divide-gray-200' : 'bg-gray-800 divide-gray-700'}`}>
                 {products.map((product) => (
-                  <tr key={product.id} className="hover:bg-gray-50 transition">
+                  <tr key={product.id} className={`transition ${theme === 'light' ? 'hover:bg-gray-50' : 'hover:bg-gray-700'}`}>
                     <td className="px-6 py-4">
                       <div className="flex items-center">
                         <img
@@ -340,8 +342,8 @@ export default function ProductManagementPage() {
                           className="h-12 w-12 rounded-lg object-cover shadow"
                         />
                         <div className="ml-4">
-                          <div className="text-sm font-medium text-gray-900">{product.name}</div>
-                          <div className="text-sm text-gray-500">{product.brand || 'No brand'}</div>
+                          <div className={`text-sm font-medium ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>{product.name}</div>
+                          <div className={`text-sm ${theme === 'light' ? 'text-gray-500' : 'text-gray-500'}`}>{product.brand || 'No brand'}</div>
                           {product.sku && (
                             <div className="text-xs text-gray-400">SKU: {product.sku}</div>
                           )}
@@ -353,7 +355,7 @@ export default function ProductManagementPage() {
                         {product.category}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900">
+                    <td className={`px-6 py-4 whitespace-nowrap text-sm font-semibold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
                       ${product.price.toFixed(2)}
                       {product.discount && (
                         <span className="ml-2 text-xs text-green-600">-{product.discount}%</span>
@@ -377,7 +379,7 @@ export default function ProductManagementPage() {
                         {product.isActive !== false ? 'Active' : 'Inactive'}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <td className={`px-6 py-4 whitespace-nowrap text-sm ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
                       {product.rating ? `${product.rating.toFixed(1)} ⭐` : 'N/A'}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
@@ -402,7 +404,7 @@ export default function ProductManagementPage() {
 
           {products.length === 0 && (
             <div className="text-center py-12">
-              <p className="text-gray-500">No products found. Add your first product!</p>
+              <p className={`${theme === 'light' ? 'text-gray-500' : 'text-gray-500'}`}>No products found. Add your first product!</p>
             </div>
           )}
         </div>

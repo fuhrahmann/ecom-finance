@@ -4,8 +4,10 @@ import ProductCard from "@/components/ProductCard";
 import { Product } from "@/types";
 import { useState, useEffect } from "react";
 import { sampleProducts } from "@/data/sampleData";
+import { useTheme } from '@/contexts/ThemeContext';
 
 export default function ProductsPage() {
+  const { theme } = useTheme();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
@@ -24,24 +26,24 @@ export default function ProductsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center">
+      <div className={`min-h-screen flex items-center justify-center ${theme === 'light' ? 'bg-gradient-to-b from-gray-50 to-white' : 'bg-gradient-to-b from-gray-900 to-gray-800'}`}>
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading products...</p>
+          <p className={`${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>Loading products...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen w-full bg-white relative">
+    <div className={`min-h-screen w-full relative ${theme === 'light' ? 'bg-white' : 'bg-gray-900'}`}>
       {/* Pink Glow Background */}
       <div
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: `
-            radial-gradient(125% 125% at 50% 90%, #ffffff 40%, #ec4899 100%)
-          `,
+          background: theme === 'light'
+            ? "radial-gradient(125% 125% at 50% 90%, #ffffff 40%, #ec4899 100%)"
+            : "radial-gradient(125% 125% at 50% 90%, #000000 40%, #2b0707 100%)",
           backgroundSize: "100% 100%",
         }}
       />
@@ -53,19 +55,19 @@ export default function ProductsPage() {
         <div className="mb-8 sm:mb-12">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
             <div>
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-2">
+              <h1 className={`text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
                 Our Products
               </h1>
-              <p className="text-base sm:text-lg text-gray-600">
+              <p className={`text-base sm:text-lg ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
                 Discover our comprehensive range of financial software solutions
               </p>
             </div>
-            <div className="flex items-center gap-2 bg-white rounded-xl p-1 shadow-md">
+            <div className={`flex items-center gap-2 rounded-xl p-1 shadow-md ${theme === 'light' ? 'bg-white' : 'bg-gray-800'}`}>
               <button
                 onClick={() => setViewMode('grid')}
                 className={`p-2 sm:p-3 rounded-lg transition-all ${viewMode === 'grid'
                   ? 'bg-blue-600 text-white shadow-md'
-                  : 'text-gray-600 hover:bg-gray-100'
+                  : `${theme === 'light' ? 'text-gray-600 hover:bg-gray-100' : 'text-gray-400 hover:bg-gray-700'}`
                   }`}
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -76,7 +78,7 @@ export default function ProductsPage() {
                 onClick={() => setViewMode('list')}
                 className={`p-2 sm:p-3 rounded-lg transition-all ${viewMode === 'list'
                   ? 'bg-blue-600 text-white shadow-md'
-                  : 'text-gray-600 hover:bg-gray-100'
+                  : `${theme === 'light' ? 'text-gray-600 hover:bg-gray-100' : 'text-gray-400 hover:bg-gray-700'}`
                   }`}
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -87,7 +89,7 @@ export default function ProductsPage() {
           </div>
 
           {/* Stats Bar */}
-          <div className="flex flex-wrap gap-4 text-sm text-gray-600">
+          <div className={`flex flex-wrap gap-4 text-sm ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
             <span className="flex items-center gap-2">
               <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
               {filteredProducts.length} Products Available
@@ -108,16 +110,16 @@ export default function ProductsPage() {
         </div>
 
         {/* Filters */}
-        <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-6 mb-8 border border-gray-100">
+        <div className={`rounded-2xl shadow-lg p-4 sm:p-6 mb-8 border ${theme === 'light' ? 'bg-white border-gray-100' : 'bg-gray-800 border-gray-700'}`}>
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="flex-1">
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className={`block text-sm font-semibold mb-2 ${theme === 'light' ? 'text-gray-700' : 'text-gray-300'}`}>
                 Category
               </label>
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-gray-50 hover:bg-white"
+                className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${theme === 'light' ? 'border-gray-200 text-gray-900 bg-gray-50 hover:bg-white' : 'border-gray-600 text-white bg-gray-700 hover:bg-gray-600 placeholder-gray-400'}`}
               >
                 <option>All Categories</option>
                 <option>Software</option>
@@ -126,13 +128,13 @@ export default function ProductsPage() {
               </select>
             </div>
             <div className="flex-1">
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className={`block text-sm font-semibold mb-2 ${theme === 'light' ? 'text-gray-700' : 'text-gray-300'}`}>
                 Sort By
               </label>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-gray-50 hover:bg-white"
+                className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${theme === 'light' ? 'border-gray-200 text-gray-900 bg-gray-50 hover:bg-white' : 'border-gray-600 text-white bg-gray-700 hover:bg-gray-600 placeholder-gray-400'}`}
               >
                 <option>Featured</option>
                 <option>Price: Low to High</option>
@@ -142,10 +144,10 @@ export default function ProductsPage() {
               </select>
             </div>
             <div className="flex-1">
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className={`block text-sm font-semibold mb-2 ${theme === 'light' ? 'text-gray-700' : 'text-gray-300'}`}>
                 Price Range
               </label>
-              <select className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-gray-50 hover:bg-white">
+              <select className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${theme === 'light' ? 'border-gray-200 text-gray-900 bg-gray-50 hover:bg-white' : 'border-gray-600 text-white bg-gray-700 hover:bg-gray-600 placeholder-gray-400'}`}>
                 <option>All Prices</option>
                 <option>Under $100</option>
                 <option>$100 - $300</option>
@@ -157,10 +159,10 @@ export default function ProductsPage() {
 
           {selectedCategory !== "All Categories" && (
             <div className="mt-4 flex items-center gap-2">
-              <span className="text-sm text-gray-600">Active filter:</span>
-              <span className="inline-flex items-center gap-2 bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">
+              <span className={`text-sm ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>Active filter:</span>
+              <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium ${theme === 'light' ? 'bg-blue-100 text-blue-700' : 'bg-blue-900/30 text-blue-400'}`}>
                 {selectedCategory}
-                <button onClick={() => setSelectedCategory("All Categories")} className="hover:text-blue-900">
+                <button onClick={() => setSelectedCategory("All Categories")} className={`${theme === 'light' ? 'hover:text-blue-900' : 'hover:text-blue-300'}`}>
                   ×
                 </button>
               </span>
@@ -180,13 +182,13 @@ export default function ProductsPage() {
 
         {filteredProducts.length === 0 && (
           <div className="text-center py-16">
-            <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className={`w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-4 ${theme === 'light' ? 'bg-gray-100' : 'bg-gray-700'}`}>
+              <svg className={`w-12 h-12 ${theme === 'light' ? 'text-gray-400' : 'text-gray-500'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">No products found</h3>
-            <p className="text-gray-600 mb-4">Try adjusting your filters</p>
+            <h3 className={`text-xl font-semibold mb-2 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>No products found</h3>
+            <p className={`mb-4 ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>Try adjusting your filters</p>
             <button
               onClick={() => setSelectedCategory("All Categories")}
               className="bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 transition-all font-semibold shadow-md"

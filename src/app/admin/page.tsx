@@ -3,8 +3,10 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { sampleOrders, sampleProducts } from '@/data/sampleData';
+import { useTheme } from '@/contexts/ThemeContext';
 
 export default function AdminDashboard() {
+  const { theme } = useTheme();
   const [stats, setStats] = useState({
     totalProducts: 0,
     totalOrders: 0,
@@ -121,14 +123,14 @@ export default function AdminDashboard() {
     <div>
       {/* Page Header */}
       <div className="mb-6">
-        <h1 className="text-2xl font-semibold text-gray-900">Dashboard</h1>
-        <p className="text-sm text-gray-600 mt-1">Welcome to your e-commerce management center</p>
+        <h1 className={`text-2xl font-semibold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>Dashboard</h1>
+        <p className={`text-sm mt-1 ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>Welcome to your e-commerce management center</p>
       </div>
 
       {/* Info Boxes - AdminLTE Style */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         {/* Total Orders */}
-        <Link href="/admin/orders" className="bg-white rounded-lg shadow hover:shadow-md transition-shadow overflow-hidden">
+        <Link href="/admin/orders" className={`rounded-lg shadow hover:shadow-md transition-shadow overflow-hidden ${theme === 'light' ? 'bg-white' : 'bg-gray-800'}`}>
           <div className="p-4 flex items-center">
             <div className="flex-shrink-0 bg-blue-500 rounded p-3">
               <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -136,17 +138,17 @@ export default function AdminDashboard() {
               </svg>
             </div>
             <div className="ml-4 flex-1">
-              <div className="text-2xl font-bold text-gray-900">{stats.totalOrders}</div>
-              <div className="text-sm text-gray-600">Total Orders</div>
+              <div className={`text-2xl font-bold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>{stats.totalOrders}</div>
+              <div className={`text-sm ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>Total Orders</div>
             </div>
           </div>
-          <div className="bg-blue-50 px-4 py-2 text-xs text-blue-700">
+          <div className={`px-4 py-2 text-xs ${theme === 'light' ? 'bg-blue-50 text-blue-700' : 'bg-blue-900/30 text-blue-400'}`}>
             View Details →
           </div>
         </Link>
 
         {/* Total Revenue */}
-        <Link href="/admin/sales" className="bg-white rounded-lg shadow hover:shadow-md transition-shadow overflow-hidden">
+        <Link href="/admin/sales" className={`rounded-lg shadow hover:shadow-md transition-shadow overflow-hidden ${theme === 'light' ? 'bg-white' : 'bg-gray-800'}`}>
           <div className="p-4 flex items-center">
             <div className="flex-shrink-0 bg-green-500 rounded p-3">
               <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -154,17 +156,17 @@ export default function AdminDashboard() {
               </svg>
             </div>
             <div className="ml-4 flex-1">
-              <div className="text-2xl font-bold text-gray-900">${stats.totalRevenue.toFixed(2)}</div>
-              <div className="text-sm text-gray-600">Total Revenue</div>
+              <div className={`text-2xl font-bold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>${stats.totalRevenue.toFixed(2)}</div>
+              <div className={`text-sm ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>Total Revenue</div>
             </div>
           </div>
-          <div className="bg-green-50 px-4 py-2 text-xs text-green-700">
+          <div className={`px-4 py-2 text-xs ${theme === 'light' ? 'bg-green-50 text-green-700' : 'bg-green-900/30 text-green-400'}`}>
             View Details →
           </div>
         </Link>
 
         {/* Total Products */}
-        <Link href="/admin/products" className="bg-white rounded-lg shadow hover:shadow-md transition-shadow overflow-hidden">
+        <Link href="/admin/products" className={`rounded-lg shadow hover:shadow-md transition-shadow overflow-hidden ${theme === 'light' ? 'bg-white' : 'bg-gray-800'}`}>
           <div className="p-4 flex items-center">
             <div className="flex-shrink-0 bg-yellow-500 rounded p-3">
               <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -172,17 +174,17 @@ export default function AdminDashboard() {
               </svg>
             </div>
             <div className="ml-4 flex-1">
-              <div className="text-2xl font-bold text-gray-900">{stats.totalProducts}</div>
-              <div className="text-sm text-gray-600">Total Products</div>
+              <div className={`text-2xl font-bold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>{stats.totalProducts}</div>
+              <div className={`text-sm ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>Total Products</div>
             </div>
           </div>
-          <div className="bg-yellow-50 px-4 py-2 text-xs text-yellow-700">
+          <div className={`px-4 py-2 text-xs ${theme === 'light' ? 'bg-yellow-50 text-yellow-700' : 'bg-yellow-900/30 text-yellow-400'}`}>
             View Details →
           </div>
         </Link>
 
         {/* Low Stock Alert */}
-        <Link href="/admin/products" className="bg-white rounded-lg shadow hover:shadow-md transition-shadow overflow-hidden">
+        <Link href="/admin/products" className={`rounded-lg shadow hover:shadow-md transition-shadow overflow-hidden ${theme === 'light' ? 'bg-white' : 'bg-gray-800'}`}>
           <div className="p-4 flex items-center">
             <div className="flex-shrink-0 bg-red-500 rounded p-3">
               <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -190,55 +192,55 @@ export default function AdminDashboard() {
               </svg>
             </div>
             <div className="ml-4 flex-1">
-              <div className="text-2xl font-bold text-gray-900">{stats.lowStockProducts}</div>
-              <div className="text-sm text-gray-600">Low Stock Items</div>
+              <div className={`text-2xl font-bold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>{stats.lowStockProducts}</div>
+              <div className={`text-sm ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>Low Stock Items</div>
             </div>
           </div>
-          <div className="bg-red-50 px-4 py-2 text-xs text-red-700">
+          <div className={`px-4 py-2 text-xs ${theme === 'light' ? 'bg-red-50 text-red-700' : 'bg-red-900/30 text-red-400'}`}>
             View Details →
           </div>
         </Link>
       </div>
 
       {/* Recent Orders Table */}
-      <div className="bg-white rounded-lg shadow mb-6">
-        <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-gray-900">Recent Orders</h2>
+      <div className={`rounded-lg shadow mb-6 ${theme === 'light' ? 'bg-white' : 'bg-gray-800'}`}>
+        <div className={`px-6 py-4 border-b flex items-center justify-between ${theme === 'light' ? 'border-gray-200' : 'border-gray-700'}`}>
+          <h2 className={`text-lg font-semibold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>Recent Orders</h2>
           <Link href="/admin/orders" className="text-sm text-blue-600 hover:underline">
             View All
           </Link>
         </div>
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+          <table className={`min-w-full divide-y ${theme === 'light' ? 'divide-gray-200' : 'divide-gray-700'}`}>
+            <thead className={`${theme === 'light' ? 'bg-gray-50' : 'bg-gray-700'}`}>
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${theme === 'light' ? 'text-gray-500' : 'text-gray-400'}`}>
                   Order ID
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${theme === 'light' ? 'text-gray-500' : 'text-gray-400'}`}>
                   Customer
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${theme === 'light' ? 'text-gray-500' : 'text-gray-400'}`}>
                   Amount
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${theme === 'light' ? 'text-gray-500' : 'text-gray-400'}`}>
                   Status
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${theme === 'light' ? 'text-gray-500' : 'text-gray-400'}`}>
                   Date
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className={`divide-y ${theme === 'light' ? 'bg-white divide-gray-200' : 'bg-gray-800 divide-gray-700'}`}>
               {sampleOrders.slice(0, 5).map((order) => (
-                <tr key={order.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                <tr key={order.id} className={`${theme === 'light' ? 'hover:bg-gray-50' : 'hover:bg-gray-700'}`}>
+                  <td className={`px-6 py-4 whitespace-nowrap text-sm font-medium ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
                     {order.id}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                  <td className={`px-6 py-4 whitespace-nowrap text-sm ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
                     {order.userId}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">
+                  <td className={`px-6 py-4 whitespace-nowrap text-sm font-semibold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
                     ${order.totalAmount.toFixed(2)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
@@ -251,7 +253,7 @@ export default function AdminDashboard() {
                       {order.status}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                  <td className={`px-6 py-4 whitespace-nowrap text-sm ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
                     {new Date(order.createdAt).toLocaleDateString()}
                   </td>
                 </tr>
