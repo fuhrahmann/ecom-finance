@@ -3,10 +3,15 @@
 import { AuthProvider } from "@/contexts/AuthContext";
 import { CartProvider } from "@/contexts/CartContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import { ToastProvider } from "@/contexts/ToastContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { usePathname } from "next/navigation";
 
+/**
+ * Client Layout Component
+ * Wraps the entire app with context providers and conditional layout elements
+ */
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
@@ -15,14 +20,16 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
 
   return (
     <ThemeProvider>
-      <AuthProvider>
-        <CartProvider>
-          {/* Only show customer navbar and footer if NOT on admin pages */}
-          {!isAdminPage && <Navbar />}
-          {children}
-          {!isAdminPage && <Footer />}
-        </CartProvider>
-      </AuthProvider>
+      <ToastProvider>
+        <AuthProvider>
+          <CartProvider>
+            {/* Only show customer navbar and footer if NOT on admin pages */}
+            {!isAdminPage && <Navbar />}
+            {children}
+            {!isAdminPage && <Footer />}
+          </CartProvider>
+        </AuthProvider>
+      </ToastProvider>
     </ThemeProvider>
   );
 }

@@ -1,0 +1,10 @@
+# robots.txt for ShopHub E-Commerce Platform
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /checkout/
+
+# Sitemaps
+Sitemap: https://your-domain.vercel.app/sitemap.xml

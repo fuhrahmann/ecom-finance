@@ -4,6 +4,7 @@ import { Product } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCart } from '@/contexts/CartContext';
+import { useToast } from '@/contexts/ToastContext';
 import { formatIDR } from '@/utils/currency';
 import { useState } from 'react';
 
@@ -11,14 +12,34 @@ interface ProductCardProps {
   product: Product;
 }
 
+/**
+ * Product Card Component
+ * Displays product information with image, price, and add to cart functionality
+ * @param product - Product object with all product details
+ */
 export default function ProductCard({ product }: ProductCardProps) {
   const { addToCart } = useCart();
+  const toast = useToast();
   const [isAdded, setIsAdded] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleAddToCart = () => {
-    addToCart(product, 1);
-    setIsAdded(true);
-    setTimeout(() => setIsAdded(false), 2000); // Reset after 2 seconds
+    if (product.stock === 0) {
+      toast.error('This product is out of stock');
+      return;
+    }
+
+    setIsLoading(true);
+
+    // Simulate async operation
+    setTimeout(() => {
+      addToCart(product, 1);
+      setIsAdded(true);
+      setIsLoading(false);
+      toast.success(`${product.name} added to cart!`);
+
+      setTimeout(() => setIsAdded(false), 2000);
+    }, 300);
   };
   return (
     <div className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow overflow-hidden border border-gray-200">
@@ -88,18 +109,28 @@ export default function ProductCard({ product }: ProductCardProps) {
 
         <button
           onClick={handleAddToCart}
-          disabled={product.stock === 0}
+          disabled={product.stock === 0 || isLoading}
           className={`w-full py-3 px-4 rounded-lg font-semibold text-sm transition-all flex items-center justify-center gap-2 ${
             isAdded
               ? 'bg-green-600 text-white'
-              : product.stock === 0
+              : product.stock === 0 || isLoading
               ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
               : 'bg-teal-600 text-white hover:bg-teal-700'
           }`}
+          aria-label={`Add ${product.name} to cart`}
+          aria-live="polite"
         >
-          {isAdded ? (
+          {isLoading ? (
             <>
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+              </svg>
+              Adding...
+            </>
+          ) : isAdded ? (
+            <>
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
               Added to Cart!
@@ -108,7 +139,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             'Out of Stock'
           ) : (
             <>
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
               </svg>
               Add to Cart

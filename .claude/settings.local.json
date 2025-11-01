@@ -25,7 +25,13 @@
       "Bash(done)",
       "Bash(do echo -e \"\\n$file\")",
       "Bash(awk:*)",
-      "Bash(taskkill:*)"
+      "Bash(taskkill:*)",
+      "Bash(findstr:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git log:*)",
+      "Bash(find:*)",
+      "Bash(npm install:*)"
     ],
     "deny": [],
     "ask": []
