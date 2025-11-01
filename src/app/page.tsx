@@ -37,6 +37,28 @@ export default function Home() {
       />
       {/* Content with relative z-index to appear above background */}
       <div className="relative z-10">
+        {/* Demo Project Banner */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className={`${
+            theme === 'light'
+              ? 'bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200'
+              : 'bg-gradient-to-r from-blue-950/50 to-indigo-950/50 border-blue-800'
+          } border-b backdrop-blur-sm`}
+        >
+          <div className="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-center gap-2 text-sm sm:text-base">
+              <span className="text-2xl">🎨</span>
+              <p className={theme === 'light' ? 'text-gray-700' : 'text-gray-200'}>
+                <strong>Portfolio Demo Project</strong> - Data is simulated and will reset on refresh.
+                <span className="hidden sm:inline"> Perfect for showcasing UI/UX skills!</span>
+              </p>
+            </div>
+          </div>
+        </motion.div>
+
         <main className="min-h-screen">
           {/* Hero Section */}
           <section className={`relative py-24 overflow-hidden ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
