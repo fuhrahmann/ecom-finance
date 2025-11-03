@@ -5,6 +5,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useTheme } from '@/contexts/ThemeContext';
+import { formatUSD } from '@/utils/currency';
 
 interface CartSummaryProps {
   items: CartItem[];
@@ -45,15 +46,15 @@ export default function CartSummary({ items, onCheckout }: CartSummaryProps) {
       <div className="space-y-3 mb-6">
         <div className={`flex justify-between ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
           <span>Subtotal</span>
-          <span>${subtotal.toFixed(2)}</span>
+          <span>{formatUSD(subtotal)}</span>
         </div>
         <div className={`flex justify-between ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
           <span>Tax (10%)</span>
-          <span>${tax.toFixed(2)}</span>
+          <span>{formatUSD(tax)}</span>
         </div>
         <div className={`${theme === 'light' ? 'border-gray-200' : 'border-gray-700'} border-t pt-3 flex justify-between text-lg font-bold`}>
           <span className={theme === 'light' ? 'text-gray-900' : 'text-white'}>Total</span>
-          <span className="text-blue-600">${total.toFixed(2)}</span>
+          <span className="text-blue-600">{formatUSD(total)}</span>
         </div>
       </div>
 

@@ -3,6 +3,7 @@
 import { sampleOrders } from '@/data/sampleData';
 import Link from 'next/link';
 import { useTheme } from '@/contexts/ThemeContext';
+import { formatUSD } from '@/utils/currency';
 
 export default function OrdersPage() {
   const { theme } = useTheme();
@@ -60,7 +61,7 @@ export default function OrdersPage() {
                       {item.name} x {item.quantity}
                     </span>
                     <span className={`font-semibold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
-                      ${(item.price * item.quantity).toFixed(2)}
+                      {formatUSD(item.price * item.quantity)}
                     </span>
                   </div>
                 ))}
@@ -71,7 +72,7 @@ export default function OrdersPage() {
               <div>
                 <p className={`text-sm ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>Total Amount</p>
                 <p className="text-xl font-bold text-blue-600">
-                  ${order.totalAmount.toFixed(2)}
+                  {formatUSD(order.totalAmount)}
                 </p>
               </div>
               <div className="flex gap-2">

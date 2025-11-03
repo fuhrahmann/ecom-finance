@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { sampleOrders, sampleProducts } from '@/data/sampleData';
 import { useTheme } from '@/contexts/ThemeContext';
+import { formatUSD } from '@/utils/currency';
 
 export default function AdminDashboard() {
   const { theme } = useTheme();
@@ -59,7 +60,7 @@ export default function AdminDashboard() {
     },
     {
       title: 'Total Revenue',
-      value: `$${stats.totalRevenue.toFixed(2)}`,
+      value: formatUSD(stats.totalRevenue),
       icon: '💰',
       bgColor: 'from-purple-500 to-purple-600',
       link: '/admin/sales',

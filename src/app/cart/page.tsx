@@ -2,7 +2,7 @@
 
 import { useCart } from '@/contexts/CartContext';
 import { useTheme } from '@/contexts/ThemeContext';
-import { formatIDR } from '@/utils/currency';
+import { formatUSD } from '@/utils/currency';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -193,7 +193,7 @@ export default function CartPage() {
                       <p className={`text-xl sm:text-2xl font-bold ${
                         theme === 'light' ? 'bg-gradient-to-r from-blue-600 to-blue-700' : 'bg-gradient-to-r from-blue-400 to-blue-500'
                       } bg-clip-text text-transparent`}>
-                        {formatIDR(item.price)}
+                        {formatUSD(item.price)}
                       </p>
 
                       <div className="flex items-center gap-3">
@@ -221,7 +221,7 @@ export default function CartPage() {
                           </button>
                         </div>
                         <span className={`text-sm hidden sm:inline ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
-                          Total: <span className={`font-bold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>{formatIDR(item.price * item.quantity)}</span>
+                          Total: <span className={`font-bold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>{formatUSD(item.price * item.quantity)}</span>
                         </span>
                       </div>
                     </div>
@@ -257,7 +257,7 @@ export default function CartPage() {
                 <div className="space-y-4 mb-6">
                   <div className={`flex justify-between ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
                     <span>Subtotal</span>
-                    <span className={`font-semibold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>{formatIDR(cartTotal)}</span>
+                    <span className={`font-semibold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>{formatUSD(cartTotal)}</span>
                   </div>
                   <div className={`flex justify-between ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
                     <span>Shipping</span>
@@ -268,7 +268,7 @@ export default function CartPage() {
                       <span className={theme === 'light' ? 'text-gray-900' : 'text-white'}>Total</span>
                       <span className={`${
                         theme === 'light' ? 'bg-gradient-to-r from-blue-600 to-blue-700' : 'bg-gradient-to-r from-blue-400 to-blue-500'
-                      } bg-clip-text text-transparent`}>{formatIDR(cartTotal)}</span>
+                      } bg-clip-text text-transparent`}>{formatUSD(cartTotal)}</span>
                     </div>
                   </div>
                 </div>

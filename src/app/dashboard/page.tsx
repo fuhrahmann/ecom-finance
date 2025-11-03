@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { sampleOrders, sampleAnalytics } from '@/data/sampleData';
 import { useTheme } from '@/contexts/ThemeContext';
+import { formatUSD } from '@/utils/currency';
 
 export default function DashboardPage() {
   const { theme } = useTheme();
@@ -94,7 +95,7 @@ export default function DashboardPage() {
             </div>
           </div>
           <p className={`text-2xl font-bold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
-            ${sampleAnalytics.averageOrderValue.toFixed(2)}
+            {formatUSD(sampleAnalytics.averageOrderValue)}
           </p>
         </div>
 
@@ -161,7 +162,7 @@ export default function DashboardPage() {
                   Order #{order.id}
                 </p>
                 <p className={`text-xs ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
-                  ${order.totalAmount.toFixed(2)} - {order.status}
+                  {formatUSD(order.totalAmount)} - {order.status}
                 </p>
               </div>
             ))}

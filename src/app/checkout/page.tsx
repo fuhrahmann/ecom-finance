@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import { useTheme } from '@/contexts/ThemeContext';
+import { formatUSD } from '@/utils/currency';
 
 export default function CheckoutPage() {
   const [orderPlaced, setOrderPlaced] = useState(false);
@@ -131,17 +132,17 @@ export default function CheckoutPage() {
             <div className={`border-b ${theme === 'light' ? 'border-gray-200' : 'border-gray-700'} pb-4`}>
               <div className="flex justify-between mb-2">
                 <span className={theme === 'light' ? 'text-gray-600' : 'text-gray-400'}>Sample Product</span>
-                <span className={`font-semibold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>$999.99</span>
+                <span className={`font-semibold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>{formatUSD(999.99)}</span>
               </div>
             </div>
             <div className="space-y-2">
               <div className={`flex justify-between ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
                 <span>Subtotal</span>
-                <span>$999.99</span>
+                <span>{formatUSD(999.99)}</span>
               </div>
               <div className={`flex justify-between ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
                 <span>Tax (10%)</span>
-                <span>$100.00</span>
+                <span>{formatUSD(100.00)}</span>
               </div>
               <div className={`flex justify-between ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
                 <span>Shipping</span>
@@ -151,7 +152,7 @@ export default function CheckoutPage() {
             <div className={`border-t ${theme === 'light' ? 'border-gray-200' : 'border-gray-700'} pt-4`}>
               <div className="flex justify-between text-xl font-bold">
                 <span className={theme === 'light' ? 'text-gray-900' : 'text-white'}>Total</span>
-                <span className="text-blue-600">$1,099.99</span>
+                <span className="text-blue-600">{formatUSD(1099.99)}</span>
               </div>
             </div>
           </div>

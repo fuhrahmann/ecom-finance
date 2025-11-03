@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Product } from '@/types';
 import { useTheme } from '@/contexts/ThemeContext';
+import { formatUSD } from '@/utils/currency';
 
 export default function ProductManagementPage() {
   const { theme } = useTheme();
@@ -356,7 +357,7 @@ export default function ProductManagementPage() {
                       </span>
                     </td>
                     <td className={`px-6 py-4 whitespace-nowrap text-sm font-semibold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
-                      ${product.price.toFixed(2)}
+                      {formatUSD(product.price)}
                       {product.discount && (
                         <span className="ml-2 text-xs text-green-600">-{product.discount}%</span>
                       )}

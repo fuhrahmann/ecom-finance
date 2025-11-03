@@ -2,6 +2,7 @@
 
 import { Invoice } from '@/types';
 import { useTheme } from '@/contexts/ThemeContext';
+import { formatUSD } from '@/utils/currency';
 
 interface InvoiceCardProps {
   invoice: Invoice;
@@ -50,15 +51,15 @@ export default function InvoiceCard({ invoice }: InvoiceCardProps) {
       <div className={`border-t ${theme === 'light' ? 'border-gray-200' : 'border-gray-700'} pt-4 space-y-2`}>
         <div className={`flex justify-between text-sm ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
           <span>Subtotal:</span>
-          <span>${invoice.subtotal.toFixed(2)}</span>
+          <span>{formatUSD(invoice.subtotal)}</span>
         </div>
         <div className={`flex justify-between text-sm ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
           <span>Tax:</span>
-          <span>${invoice.tax.toFixed(2)}</span>
+          <span>{formatUSD(invoice.tax)}</span>
         </div>
         <div className="flex justify-between text-lg font-bold">
           <span className={theme === 'light' ? 'text-gray-900' : 'text-white'}>Total:</span>
-          <span className="text-blue-600">${invoice.total.toFixed(2)}</span>
+          <span className="text-blue-600">{formatUSD(invoice.total)}</span>
         </div>
       </div>
 

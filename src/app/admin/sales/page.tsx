@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useState, useEffect } from 'react';
 import { sampleOrders, sampleProducts } from '@/data/sampleData';
 import { useTheme } from '@/contexts/ThemeContext';
+import { formatUSD } from '@/utils/currency';
 
 export default function SalesReportsPage() {
   const { theme } = useTheme();
@@ -90,7 +91,7 @@ export default function SalesReportsPage() {
               <div className="text-5xl">💰</div>
             </div>
             <p className="text-green-100 text-sm font-medium mb-1">Total Revenue</p>
-            <p className="text-3xl font-bold">${stats.totalRevenue.toFixed(2)}</p>
+            <p className="text-3xl font-bold">{formatUSD(stats.totalRevenue)}</p>
           </div>
 
           <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg p-6 text-white">
@@ -106,7 +107,7 @@ export default function SalesReportsPage() {
               <div className="text-5xl">📊</div>
             </div>
             <p className="text-purple-100 text-sm font-medium mb-1">Avg Order Value</p>
-            <p className="text-3xl font-bold">${stats.averageOrderValue.toFixed(2)}</p>
+            <p className="text-3xl font-bold">{formatUSD(stats.averageOrderValue)}</p>
           </div>
 
           <div className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl shadow-lg p-6 text-white">
@@ -128,7 +129,7 @@ export default function SalesReportsPage() {
                 <div key={index}>
                   <div className="flex justify-between mb-2">
                     <span className={`text-sm font-medium ${theme === 'light' ? 'text-gray-700' : 'text-gray-300'}`}>{data.month}</span>
-                    <span className={`text-sm font-bold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>${data.revenue.toLocaleString()}</span>
+                    <span className={`text-sm font-bold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>{formatUSD(data.revenue)}</span>
                   </div>
                   <div className={`w-full rounded-full h-3 ${theme === 'light' ? 'bg-gray-200' : 'bg-gray-700'}`}>
                     <div
@@ -156,7 +157,7 @@ export default function SalesReportsPage() {
                       <p className={`text-sm ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>{product.quantity} units sold</p>
                     </div>
                   </div>
-                  <p className="font-bold text-green-600">${product.revenue.toFixed(2)}</p>
+                  <p className="font-bold text-green-600">{formatUSD(product.revenue)}</p>
                 </div>
               ))}
             </div>
@@ -228,7 +229,7 @@ export default function SalesReportsPage() {
                       {data.totalStock} units
                     </td>
                     <td className={`px-6 py-4 whitespace-nowrap text-sm font-semibold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
-                      ${(data.totalPrice / data.count).toFixed(2)}
+                      {formatUSD(data.totalPrice / data.count)}
                     </td>
                   </tr>
                 ))}

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { sampleOrders } from '@/data/sampleData';
 import { Order } from '@/types';
 import { useTheme } from '@/contexts/ThemeContext';
+import { formatUSD } from '@/utils/currency';
 
 export default function OrdersManagementPage() {
   const { theme } = useTheme();
@@ -135,7 +136,7 @@ export default function OrdersManagementPage() {
                 Orders ({filteredOrders.length})
               </h2>
               <div className="text-sm text-gray-600">
-                Total Revenue: <span className="font-bold text-green-600">${totalRevenue.toFixed(2)}</span>
+                Total Revenue: <span className="font-bold text-green-600">{formatUSD(totalRevenue)}</span>
               </div>
             </div>
           </div>
@@ -186,7 +187,7 @@ export default function OrdersManagementPage() {
                       {order.items.length} item{order.items.length > 1 ? 's' : ''}
                     </td>
                     <td className={`px-6 py-4 whitespace-nowrap text-sm font-semibold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
-                      ${order.totalAmount.toFixed(2)}
+                      {formatUSD(order.totalAmount)}
                     </td>
                     <td className={`px-6 py-4 whitespace-nowrap text-sm ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
                       {order.paymentMethod}
@@ -274,7 +275,7 @@ export default function OrdersManagementPage() {
                             <p className="text-sm text-gray-600">Quantity: {item.quantity}</p>
                           </div>
                         </div>
-                        <p className={`font-semibold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>${(item.price * item.quantity).toFixed(2)}</p>
+                        <p className={`font-semibold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>{formatUSD(item.price * item.quantity)}</p>
                       </div>
                     ))}
                   </div>
@@ -284,7 +285,7 @@ export default function OrdersManagementPage() {
                 <div className="border-t border-gray-200 pt-4">
                   <div className="flex justify-between mb-2">
                     <span className={`${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>Subtotal:</span>
-                    <span className={`font-medium ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>${selectedOrder.totalAmount.toFixed(2)}</span>
+                    <span className={`font-medium ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>{formatUSD(selectedOrder.totalAmount)}</span>
                   </div>
                   <div className="flex justify-between mb-2">
                     <span className={`${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>Payment Method:</span>
@@ -298,7 +299,7 @@ export default function OrdersManagementPage() {
                   </div>
                   <div className="flex justify-between text-lg font-bold mt-4 pt-4 border-t border-gray-200">
                     <span className={`${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>Total:</span>
-                    <span className={`${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>${selectedOrder.totalAmount.toFixed(2)}</span>
+                    <span className={`${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>{formatUSD(selectedOrder.totalAmount)}</span>
                   </div>
                 </div>
               </div>

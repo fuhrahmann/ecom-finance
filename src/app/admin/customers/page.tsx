@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { sampleOrders } from '@/data/sampleData';
 import { useTheme } from '@/contexts/ThemeContext';
+import { formatUSD } from '@/utils/currency';
 
 interface Customer {
   id: string;
@@ -84,9 +85,9 @@ export default function CustomersManagementPage() {
             </div>
             <p className="text-purple-100 text-sm font-medium mb-1">Avg Customer Value</p>
             <p className="text-3xl font-bold">
-              ${customers.length > 0
-                ? (customers.reduce((sum, c) => sum + c.totalSpent, 0) / customers.length).toFixed(2)
-                : '0.00'}
+              {customers.length > 0
+                ? formatUSD(customers.reduce((sum, c) => sum + c.totalSpent, 0) / customers.length)
+                : formatUSD(0)}
             </p>
           </div>
         </div>
@@ -145,7 +146,7 @@ export default function CustomersManagementPage() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm font-bold text-green-600">
-                        ${customer.totalSpent.toFixed(2)}
+                        {formatUSD(customer.totalSpent)}
                       </div>
                     </td>
                     <td className={`px-6 py-4 whitespace-nowrap text-sm ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
@@ -200,7 +201,7 @@ export default function CustomersManagementPage() {
                         <p className={`text-sm ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>{customer.totalOrders} orders</p>
                       </div>
                     </div>
-                    <p className="font-bold text-green-600">${customer.totalSpent.toFixed(2)}</p>
+                    <p className="font-bold text-green-600">{formatUSD(customer.totalSpent)}</p>
                   </div>
                 ))}
             </div>

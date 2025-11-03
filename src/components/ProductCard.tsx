@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useCart } from '@/contexts/CartContext';
 import { useToast } from '@/contexts/ToastContext';
 import { useTheme } from '@/contexts/ThemeContext';
-import { formatIDR } from '@/utils/currency';
+import { formatUSD } from '@/utils/currency';
 import { useState } from 'react';
 
 interface ProductCardProps {
@@ -109,13 +109,13 @@ export default function ProductCard({ product }: ProductCardProps) {
             <span className={`text-2xl font-bold ${
               theme === 'light' ? 'text-blue-600' : 'text-blue-400'
             }`}>
-              {formatIDR(product.price)}
+              {formatUSD(product.price)}
             </span>
             {product.discount && (
               <div className={`text-xs line-through ${
                 theme === 'light' ? 'text-gray-500' : 'text-gray-500'
               }`}>
-                {formatIDR(product.price / (1 - product.discount / 100))}
+                {formatUSD(product.price / (1 - product.discount / 100))}
               </div>
             )}
           </div>

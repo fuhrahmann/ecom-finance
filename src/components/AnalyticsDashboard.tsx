@@ -2,6 +2,7 @@
 
 import { FinanceAnalytics } from '@/types';
 import { useTheme } from '@/contexts/ThemeContext';
+import { formatUSD } from '@/utils/currency';
 
 interface AnalyticsDashboardProps {
   analytics: FinanceAnalytics;
@@ -21,7 +22,7 @@ export default function AnalyticsDashboard({ analytics }: AnalyticsDashboardProp
             <div>
               <p className={`text-sm ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>Total Revenue</p>
               <p className="text-2xl font-bold text-green-600">
-                ${analytics.totalRevenue.toLocaleString()}
+                {formatUSD(analytics.totalRevenue)}
               </p>
             </div>
             <div className={`${theme === 'light' ? 'bg-green-100' : 'bg-green-900/30'} p-3 rounded-full`}>
@@ -71,7 +72,7 @@ export default function AnalyticsDashboard({ analytics }: AnalyticsDashboardProp
             <div>
               <p className={`text-sm ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>Avg Order Value</p>
               <p className="text-2xl font-bold text-purple-600">
-                ${analytics.averageOrderValue.toFixed(2)}
+                {formatUSD(analytics.averageOrderValue)}
               </p>
             </div>
             <div className={`${theme === 'light' ? 'bg-purple-100' : 'bg-purple-900/30'} p-3 rounded-full`}>
@@ -131,7 +132,7 @@ export default function AnalyticsDashboard({ analytics }: AnalyticsDashboardProp
               <div key={data.month}>
                 <div className="flex justify-between text-sm mb-1">
                   <span className={`font-medium ${theme === 'light' ? 'text-gray-700' : 'text-gray-300'}`}>{data.month}</span>
-                  <span className={theme === 'light' ? 'text-gray-600' : 'text-gray-400'}>${data.revenue.toLocaleString()}</span>
+                  <span className={theme === 'light' ? 'text-gray-600' : 'text-gray-400'}>{formatUSD(data.revenue)}</span>
                 </div>
                 <div className={`w-full ${theme === 'light' ? 'bg-gray-200' : 'bg-gray-700'} rounded-full h-3`}>
                   <div

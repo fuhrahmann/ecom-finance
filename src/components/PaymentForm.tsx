@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useTheme } from '@/contexts/ThemeContext';
+import { formatUSD } from '@/utils/currency';
 
 interface PaymentFormProps {
   totalAmount: number;
@@ -47,7 +48,7 @@ export default function PaymentForm({ totalAmount, onSubmit }: PaymentFormProps)
 
       <div className={`border-b ${theme === 'light' ? 'border-gray-200' : 'border-gray-700'} pb-4`}>
         <p className={`text-sm ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>Total Amount</p>
-        <p className="text-3xl font-bold text-blue-600">${totalAmount.toFixed(2)}</p>
+        <p className="text-3xl font-bold text-blue-600">{formatUSD(totalAmount)}</p>
       </div>
 
       {/* Card Details */}

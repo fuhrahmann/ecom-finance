@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { sampleOrders, sampleProducts } from '@/data/sampleData';
 import { useTheme } from '@/contexts/ThemeContext';
+import { formatUSD } from '@/utils/currency';
 
 export default function AdminDashboard() {
   const { theme } = useTheme();
@@ -60,7 +61,7 @@ export default function AdminDashboard() {
     },
     {
       title: 'Total Revenue',
-      value: `$${stats.totalRevenue.toFixed(2)}`,
+      value: formatUSD(stats.totalRevenue),
       icon: '💰',
       bgColor: 'from-purple-500 to-purple-600',
       link: '/admin/sales',
@@ -156,7 +157,7 @@ export default function AdminDashboard() {
               </svg>
             </div>
             <div className="ml-4 flex-1">
-              <div className={`text-2xl font-bold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>${stats.totalRevenue.toFixed(2)}</div>
+              <div className={`text-2xl font-bold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>{formatUSD(stats.totalRevenue)}</div>
               <div className={`text-sm ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>Total Revenue</div>
             </div>
           </div>
@@ -241,7 +242,7 @@ export default function AdminDashboard() {
                     {order.userId}
                   </td>
                   <td className={`px-6 py-4 whitespace-nowrap text-sm font-semibold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
-                    ${order.totalAmount.toFixed(2)}
+                    {formatUSD(order.totalAmount)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded ${

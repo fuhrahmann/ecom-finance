@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Product } from "@/types";
 import { sampleProducts } from "@/data/sampleData";
-import { formatIDR } from "@/utils/currency";
+import { formatUSD } from "@/utils/currency";
 import { useCart } from "@/contexts/CartContext";
 import { useTheme } from '@/contexts/ThemeContext';
 
@@ -166,11 +166,11 @@ export default function ProductDetailPage({
               <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 mb-6 border border-blue-100">
                 <div className="flex items-baseline gap-2 mb-2">
                   <span className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
-                    {formatIDR(product.price)}
+                    {formatUSD(product.price)}
                   </span>
                   {product.discount && (
                     <span className="text-gray-500 line-through text-xl">
-                      {formatIDR(product.price / (1 - product.discount / 100))}
+                      {formatUSD(product.price / (1 - product.discount / 100))}
                     </span>
                   )}
                 </div>
@@ -224,7 +224,7 @@ export default function ProductDetailPage({
                     </button>
                   </div>
                   <span className={`text-sm ${theme === 'light' ? 'text-gray-500' : 'text-gray-500'}`}>
-                    Total: <span className={`font-bold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>{formatIDR(product.price * quantity)}</span>
+                    Total: <span className={`font-bold ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>{formatUSD(product.price * quantity)}</span>
                   </span>
                 </div>
               </div>
