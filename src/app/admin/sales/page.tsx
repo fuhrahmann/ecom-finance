@@ -1,5 +1,5 @@
 'use client';
-
+import Link from "next/link";
 import { useState, useEffect } from 'react';
 import { sampleOrders, sampleProducts } from '@/data/sampleData';
 import { useTheme } from '@/contexts/ThemeContext';
@@ -63,12 +63,24 @@ export default function SalesReportsPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className={`text-3xl font-bold mb-2 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
-            Sales Reports
-          </h1>
-          <p className={`${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
-            Comprehensive sales analytics and performance metrics
-          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="col-start">
+              <h1 className={`text-3xl font-bold mb-2 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
+                Sales Reports
+              </h1>
+              <p className={`${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
+                Comprehensive sales analytics and performance metrics
+              </p>
+            </div>
+            <div className="flex items-center justify-end md:justify-end">
+              <Link
+                href="/admin/sales/generate_report"
+                className="px-4 py-3 bg-teal-500 text-white rounded-xl hover:bg-teal-600 transition-all font-semibold shadow-md sm:flex">
+                Generate Report
+              </Link>
+            </div>
+          </div>
+
         </div>
 
         {/* Key Metrics */}
@@ -225,6 +237,6 @@ export default function SalesReportsPage() {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 }
